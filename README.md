@@ -1,0 +1,1 @@
+# `did:web` Method Spec
