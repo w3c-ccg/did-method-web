@@ -10,6 +10,7 @@ Repository: https://github.com/w3c-ccg/did-method-web
 Max ToC Depth: 2
 Editor: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
 Editor: Dmitri Zagidulin, dzagidulin@gmail.com
+Editor: Amy Guy, amy@rhiaro.co.uk
 Abstract:
   Abstract goes here.
 </pre>
