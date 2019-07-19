@@ -1,5 +1,6 @@
 <pre class='metadata'>
 Title: did:web Decentralized Identifier Method Specification
+Boilerplate: issues-index no
 Shortname: did-web-spec
 Level: 1
 Status: w3c/ED
