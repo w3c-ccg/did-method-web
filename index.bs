@@ -1,6 +1,6 @@
 <pre class='metadata'>
 Title: did:web Decentralized Identifier Method Specification
-Boilerplate: issues-index no
+Boilerplate: issues-index no, copyright no, abstract no
 Shortname: did-web-spec
 Level: 1
 Status: w3c/ED
@@ -11,17 +11,21 @@ Max ToC Depth: 2
 Editor: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
 Editor: Dmitri Zagidulin, dzagidulin@gmail.com
 Editor: Amy Guy, amy@rhiaro.co.uk
-Abstract:
-  Abstract goes here.
+Authors: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
+Authors: Mike Xu, Consensys https://consensys.net, mike.xu@consensy.net
 </pre>
 
+## Copyright
+<p class="copyright">
+<a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+© 2019 the Contributors to the DID Web Method Specification, published by the
+<a href="https://www.w3.org/community/credentials/">Credentials Community
+Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+A human-readable <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a>
+is available.
+</p>
+
 # `did:web` Method Specification
-
-## Author
-
-- uPort Team <https://www.uport.me/contact>
-- Mike Xu <mike.xu@consensy.net>
-- Oliver Terbu <oliver.terbu@consensys.net>
 
 ## Preface
 

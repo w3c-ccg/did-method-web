@@ -1437,17 +1437,7 @@ pre .property::before, pre .property::after {
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
-and related or neighboring rights to this work.
-In addition, as of 19 July 2019,
-the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
-which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
-Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
    <hr title="Separator for header">
-  </div>
-  <div class="p-summary" data-fill-with="abstract">
-   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>Abstract goes here.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
@@ -1456,17 +1446,16 @@ Parts of this work may be from another specification document.  If so, those par
     <li>
      <a href="#didweb-method-specification"><span class="secno">1</span> <span class="content">`did:web` Method Specification</span></a>
      <ol class="toc">
-      <li><a href="#author"><span class="secno">1.1</span> <span class="content">Author</span></a>
-      <li><a href="#preface"><span class="secno">1.2</span> <span class="content">Preface</span></a>
-      <li><a href="#abstract①"><span class="secno">1.3</span> <span class="content">Abstract</span></a>
-      <li><a href="#example"><span class="secno">1.4</span> <span class="content">Example</span></a>
-      <li><a href="#target-system"><span class="secno">1.5</span> <span class="content">Target System</span></a>
-      <li><a href="#did-method-name"><span class="secno">1.6</span> <span class="content">DID Method Name</span></a>
-      <li><a href="#method-specific-identifier"><span class="secno">1.7</span> <span class="content">Method Specific Identifier</span></a>
-      <li><a href="#json-ld-context-definition"><span class="secno">1.8</span> <span class="content">JSON-LD Context Definition</span></a>
-      <li><a href="#crud-operation-definitions"><span class="secno">1.9</span> <span class="content">CRUD Operation Definitions</span></a>
-      <li><a href="#security-considerations"><span class="secno">1.10</span> <span class="content">Security Considerations</span></a>
-      <li><a href="#reference-implementations"><span class="secno">1.11</span> <span class="content">Reference Implementations</span></a>
+      <li><a href="#preface"><span class="secno">1.1</span> <span class="content">Preface</span></a>
+      <li><a href="#abstract"><span class="secno">1.2</span> <span class="content">Abstract</span></a>
+      <li><a href="#example"><span class="secno">1.3</span> <span class="content">Example</span></a>
+      <li><a href="#target-system"><span class="secno">1.4</span> <span class="content">Target System</span></a>
+      <li><a href="#did-method-name"><span class="secno">1.5</span> <span class="content">DID Method Name</span></a>
+      <li><a href="#method-specific-identifier"><span class="secno">1.6</span> <span class="content">Method Specific Identifier</span></a>
+      <li><a href="#json-ld-context-definition"><span class="secno">1.7</span> <span class="content">JSON-LD Context Definition</span></a>
+      <li><a href="#crud-operation-definitions"><span class="secno">1.8</span> <span class="content">CRUD Operation Definitions</span></a>
+      <li><a href="#security-considerations"><span class="secno">1.9</span> <span class="content">Security Considerations</span></a>
+      <li><a href="#reference-implementations"><span class="secno">1.10</span> <span class="content">Reference Implementations</span></a>
      </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
@@ -1477,38 +1466,24 @@ Parts of this work may be from another specification document.  If so, those par
    </ol>
   </nav>
   <main>
+   <h3 class="heading settled" id="copyright"><span class="content">Copyright</span></h3>
+   <p class="copyright"> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2019 the Contributors to the DID Web Method Specification, published by the <a href="https://www.w3.org/community/credentials/">Credentials Community
+Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+A human-readable <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available. </p>
    <h2 class="heading settled" data-level="1" id="didweb-method-specification"><span class="secno">1. </span><span class="content">`did:web` Method Specification</span><a class="self-link" href="#didweb-method-specification"></a></h2>
-   <h3 class="heading settled" data-level="1.1" id="author"><span class="secno">1.1. </span><span class="content">Author</span><a class="self-link" href="#author"></a></h3>
-   <ul>
-    <li data-md>
-     <p>
-      uPort Team 
-      <httpsU0003A contact www.uport.me></httpsU0003A>
-     </p>
-    <li data-md>
-     <p>
-      Mike Xu 
-      <mike.xuU00040consensy.net></mike.xuU00040consensy.net>
-     </p>
-    <li data-md>
-     <p>
-      Oliver Terbu 
-      <oliver.terbuU00040consensys.net></oliver.terbuU00040consensys.net>
-     </p>
-   </ul>
-   <h3 class="heading settled" data-level="1.2" id="preface"><span class="secno">1.2. </span><span class="content">Preface</span><a class="self-link" href="#preface"></a></h3>
+   <h3 class="heading settled" data-level="1.1" id="preface"><span class="secno">1.1. </span><span class="content">Preface</span><a class="self-link" href="#preface"></a></h3>
    <p>The Web DID method specification conforms to the requirements specified in the
 [DID specification](https://w3c-ccg.github.io/did-spec/), currently published by
 the W3C Credentials Community Group. For more information about DIDs and DID
 method specifications, please see the [DID
 Primer](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust-fall2017/blob/master/topics-and-advance-readings/did-primer.md)</p>
-   <h3 class="heading settled" data-level="1.3" id="abstract①"><span class="secno">1.3. </span><span class="content">Abstract</span><a class="self-link" href="#abstract①"></a></h3>
+   <h3 class="heading settled" data-level="1.2" id="abstract"><span class="secno">1.2. </span><span class="content">Abstract</span><a class="self-link" href="#abstract"></a></h3>
    <p>DIDs that target a distributed ledger face significant practical challenges in
 bootstrapping enough meaningful trusted data around identities to incentivize
 mass adoption. We propose using a new DID method in conjunction with
 blockchain-based DIDs that allows them to bootstrap trust using a web domain’s
 existing reputation.</p>
-   <h3 class="heading settled" data-level="1.4" id="example"><span class="secno">1.4. </span><span class="content">Example</span><a class="self-link" href="#example"></a></h3>
+   <h3 class="heading settled" data-level="1.3" id="example"><span class="secno">1.3. </span><span class="content">Example</span><a class="self-link" href="#example"></a></h3>
    <p class="issue" id="issue-3f0450dc"><a class="self-link" href="#issue-3f0450dc"></a> Add non-ethereum example keys (ed25519, RSA, etc)</p>
 <pre class="language-json highlight"><c- p>{</c->
   <c- f>"@context"</c-><c- p>:</c-> <c- u>"https://w3id.org/did/v1"</c-><c- p>,</c->
@@ -1525,17 +1500,17 @@ existing reputation.</p>
   <c- p>}]</c->
 <c- p>}</c->
 </pre>
-   <h3 class="heading settled" data-level="1.5" id="target-system"><span class="secno">1.5. </span><span class="content">Target System</span><a class="self-link" href="#target-system"></a></h3>
+   <h3 class="heading settled" data-level="1.4" id="target-system"><span class="secno">1.4. </span><span class="content">Target System</span><a class="self-link" href="#target-system"></a></h3>
    <p class="issue" id="issue-a08a834e"><a class="self-link" href="#issue-a08a834e"></a> Explain the difference from / relationship with the [Decentralized Identifier in DNS](https://tools.ietf.org/html/draft-mayrhofer-did-dns-01) spec</p>
    <p>The target system of the Web DID method is the web host that the domain name
 described by the DID resolves to when queried through the Domain Name System
 (DNS).</p>
-   <h3 class="heading settled" data-level="1.6" id="did-method-name"><span class="secno">1.6. </span><span class="content">DID Method Name</span><a class="self-link" href="#did-method-name"></a></h3>
+   <h3 class="heading settled" data-level="1.5" id="did-method-name"><span class="secno">1.5. </span><span class="content">DID Method Name</span><a class="self-link" href="#did-method-name"></a></h3>
    <p>The namestring that shall identify this DID method is: `web`</p>
    <p>A DID that uses this method MUST begin with the following prefix: `did:web`. Per
 the DID specification, this string MUST be in lowercase. The remainder of the
 DID, after the prefix, is specified below.</p>
-   <h3 class="heading settled" data-level="1.7" id="method-specific-identifier"><span class="secno">1.7. </span><span class="content">Method Specific Identifier</span><a class="self-link" href="#method-specific-identifier"></a></h3>
+   <h3 class="heading settled" data-level="1.6" id="method-specific-identifier"><span class="secno">1.6. </span><span class="content">Method Specific Identifier</span><a class="self-link" href="#method-specific-identifier"></a></h3>
    <p>The method specific identifier is a fully qualified domain name that is secured
 by a TLS/SSL certificate. The formal rules describing valid domain name syntax
 are described in [RFC 1035](https://tools.ietf.org/html/rfc1035), [RFC
@@ -1545,10 +1520,10 @@ are described in [RFC 1035](https://tools.ietf.org/html/rfc1035), [RFC
 certificate, and it must not include IP addresses, port numbers, or directories
 behind the top-level domain extension.</p>
    <p>web-did = "did:web:" domain-name</p>
-   <h4 class="heading settled" data-level="1.7.1" id="example①"><span class="secno">1.7.1. </span><span class="content">Example</span><a class="self-link" href="#example①"></a></h4>
+   <h4 class="heading settled" data-level="1.6.1" id="example①"><span class="secno">1.6.1. </span><span class="content">Example</span><a class="self-link" href="#example①"></a></h4>
 <pre>did:web:w3c-ccg.github.io
 </pre>
-   <h3 class="heading settled" data-level="1.8" id="json-ld-context-definition"><span class="secno">1.8. </span><span class="content">JSON-LD Context Definition</span><a class="self-link" href="#json-ld-context-definition"></a></h3>
+   <h3 class="heading settled" data-level="1.7" id="json-ld-context-definition"><span class="secno">1.7. </span><span class="content">JSON-LD Context Definition</span><a class="self-link" href="#json-ld-context-definition"></a></h3>
    <p class="issue" id="issue-4d24b0ff"><a class="self-link" href="#issue-4d24b0ff"></a> Add example usage of non-secp keys (ed25519, RSA, etc)</p>
    <p>Note this DID example uses the `Secp256k1VerificationKey2018`, `Secp256k1SignatureAuthentication2018`
 types and an `ethereumAddress` instead of a `publicKeyHex`.</p>
@@ -1561,8 +1536,8 @@ types and an `ethereumAddress` instead of a `publicKeyHex`.</p>
             "Secp256k1SignatureAuthentication2018": "https://github.com/uport-project/ethr-did-resolver#Secp256k1VerificationKey2018",
         }
     }</p>
-   <h3 class="heading settled" data-level="1.9" id="crud-operation-definitions"><span class="secno">1.9. </span><span class="content">CRUD Operation Definitions</span><a class="self-link" href="#crud-operation-definitions"></a></h3>
-   <h4 class="heading settled" data-level="1.9.1" id="create-register"><span class="secno">1.9.1. </span><span class="content">Create (Register)</span><a class="self-link" href="#create-register"></a></h4>
+   <h3 class="heading settled" data-level="1.8" id="crud-operation-definitions"><span class="secno">1.8. </span><span class="content">CRUD Operation Definitions</span><a class="self-link" href="#crud-operation-definitions"></a></h3>
+   <h4 class="heading settled" data-level="1.8.1" id="create-register"><span class="secno">1.8.1. </span><span class="content">Create (Register)</span><a class="self-link" href="#create-register"></a></h4>
    <p>Creating a DID is done by</p>
    <ol>
     <li data-md>
@@ -1579,7 +1554,7 @@ types and an `ethereumAddress` instead of a `publicKeyHex`.</p>
 the following URL:</p>
 <pre>did:web:w3c-ccg.github.io/.well-known/did.json
 </pre>
-   <h4 class="heading settled" data-level="1.9.2" id="read-resolve"><span class="secno">1.9.2. </span><span class="content">Read (Resolve)</span><a class="self-link" href="#read-resolve"></a></h4>
+   <h4 class="heading settled" data-level="1.8.2" id="read-resolve"><span class="secno">1.8.2. </span><span class="content">Read (Resolve)</span><a class="self-link" href="#read-resolve"></a></h4>
    <p>The following steps must be executed to resolve the DID document from a Web DID:</p>
    <ol>
     <li data-md>
@@ -1594,14 +1569,14 @@ the following URL:</p>
   requirements as described in
   [Security Considerations](Security-Considerations).</p>
    </ol>
-   <h4 class="heading settled" data-level="1.9.3" id="update"><span class="secno">1.9.3. </span><span class="content">Update</span><a class="self-link" href="#update"></a></h4>
+   <h4 class="heading settled" data-level="1.8.3" id="update"><span class="secno">1.8.3. </span><span class="content">Update</span><a class="self-link" href="#update"></a></h4>
    <p>To update the DID document, the `did.json`has to be updated. Please note that
 the DID will remain the same, but the contents of the DID document could change,
 e.g., by including a new verification key or adding service endpoints.</p>
-   <h4 class="heading settled" data-level="1.9.4" id="delete-revoke"><span class="secno">1.9.4. </span><span class="content">Delete (Revoke)</span><a class="self-link" href="#delete-revoke"></a></h4>
+   <h4 class="heading settled" data-level="1.8.4" id="delete-revoke"><span class="secno">1.8.4. </span><span class="content">Delete (Revoke)</span><a class="self-link" href="#delete-revoke"></a></h4>
    <p>To delete the DID document, the `did.json`has to be removed or has to be no
 longer publicly available due to any other means.</p>
-   <h3 class="heading settled" data-level="1.10" id="security-considerations"><span class="secno">1.10. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
+   <h3 class="heading settled" data-level="1.9" id="security-considerations"><span class="secno">1.9. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
    <p>At least TLS 1.2 should be configured to use only strong ciphers suites and to
 use sufficiently large key sizes. As recommendations may be volatile these days,
 only the very latest recommendations should be used. However, as a rule of
@@ -1641,7 +1616,7 @@ thumb, the following must be used:</p>
 [OWASP’s](https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet)
 latest recommendations for hardening TLS configurations.</p>
    <p>Delete action can be performed by domain name registrars or DNS lookup services.</p>
-   <h3 class="heading settled" data-level="1.11" id="reference-implementations"><span class="secno">1.11. </span><span class="content">Reference Implementations</span><a class="self-link" href="#reference-implementations"></a></h3>
+   <h3 class="heading settled" data-level="1.10" id="reference-implementations"><span class="secno">1.10. </span><span class="content">Reference Implementations</span><a class="self-link" href="#reference-implementations"></a></h3>
    <p>The code at
 [https://github.com/uport-project/https-did-resolver](https://github.com/uport-project/https-did-resolver)
 is intended to present a reference implementation of this DID method. Any other
