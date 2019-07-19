@@ -4,7 +4,8 @@ Shortname: did-web-spec
 Level: 1
 Status: w3c/ED
 Group: Credentials Community Group
-URL: https://w3c-ccg.github.io/did-method-web/
+URL: https://github.com/w3c-ccg/did-method-web
+Repository: https://github.com/w3c-ccg/did-method-web
 Max ToC Depth: 2
 Editor: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
 Editor: Dmitri Zagidulin, dzagidulin@gmail.com
