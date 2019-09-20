@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 9c51ae462b4b8b2f14dbddcd7d4b5224375eccc0" name="generator">
+  <meta content="Bikeshed version e86d5b1b47a216fa66165c234892adc259212183" name="generator">
   <link href="https://github.com/w3c-ccg/did-method-web" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1423,7 +1423,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">did:web Decentralized Identifier Method Specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-07-19">19 July 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-09-20">20 September 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1454,7 +1454,7 @@ pre .property::before, pre .property::after {
       <li><a href="#method-specific-identifier"><span class="secno">1.6</span> <span class="content">Method Specific Identifier</span></a>
       <li><a href="#json-ld-context-definition"><span class="secno">1.7</span> <span class="content">JSON-LD Context Definition</span></a>
       <li><a href="#crud-operation-definitions"><span class="secno">1.8</span> <span class="content">CRUD Operation Definitions</span></a>
-      <li><a href="#security-considerations"><span class="secno">1.9</span> <span class="content">Security Considerations</span></a>
+      <li><a href="#security-and-privacy-considerations"><span class="secno">1.9</span> <span class="content">Security and Privacy Considerations</span></a>
       <li><a href="#reference-implementations"><span class="secno">1.10</span> <span class="content">Reference Implementations</span></a>
      </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
@@ -1576,7 +1576,13 @@ e.g., by including a new verification key or adding service endpoints.</p>
    <h4 class="heading settled" data-level="1.8.4" id="delete-revoke"><span class="secno">1.8.4. </span><span class="content">Delete (Revoke)</span><a class="self-link" href="#delete-revoke"></a></h4>
    <p>To delete the DID document, the `did.json`has to be removed or has to be no
 longer publicly available due to any other means.</p>
-   <h3 class="heading settled" data-level="1.9" id="security-considerations"><span class="secno">1.9. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
+   <h3 class="heading settled" data-level="1.9" id="security-and-privacy-considerations"><span class="secno">1.9. </span><span class="content">Security and Privacy Considerations</span><a class="self-link" href="#security-and-privacy-considerations"></a></h3>
+   <h4 class="heading settled" data-level="1.9.1" id="dns-considerations"><span class="secno">1.9.1. </span><span class="content">DNS Considerations</span><a class="self-link" href="#dns-considerations"></a></h4>
+   <p class="issue" id="issue-a4615375"><a class="self-link" href="#issue-a4615375"></a> Add warning - all resolutions of a did:web identifier using DNS are centrally logged, enabling pervasive tracking mechanisms.</p>
+   <p class="issue" id="issue-a1ff5690"><a class="self-link" href="#issue-a1ff5690"></a> Add discussion of DNSCrypt and DNS Security Extensions (DNSSEC) and similar methods as possible mitigation tools.</p>
+   <h4 class="heading settled" data-level="1.9.2" id="did-document-integrity-verification"><span class="secno">1.9.2. </span><span class="content">DID Document Integrity Verification</span><a class="self-link" href="#did-document-integrity-verification"></a></h4>
+   <p class="issue" id="issue-12da7fa0"><a class="self-link" href="#issue-12da7fa0"></a> Add discussion of using <a href="https://tools.ietf.org/html/draft-sporny-hashlink">Hashlinks</a> to aid integrity protection and verification of the DID document.</p>
+   <h4 class="heading settled" data-level="1.9.3" id="in-transit-security"><span class="secno">1.9.3. </span><span class="content">In-transit Security</span><a class="self-link" href="#in-transit-security"></a></h4>
    <p>At least TLS 1.2 should be configured to use only strong ciphers suites and to
 use sufficiently large key sizes. As recommendations may be volatile these days,
 only the very latest recommendations should be used. However, as a rule of
