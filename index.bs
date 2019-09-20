@@ -161,7 +161,19 @@ e.g., by including a new verification key or adding service endpoints.
 To delete the DID document, the `did.json`has to be removed or has to be no
 longer publicly available due to any other means.
 
-## Security Considerations
+## Security and Privacy Considerations
+
+### DNS Considerations
+
+Issue: Add warning - all resolutions of a did:web identifier using DNS are centrally logged, enabling pervasive tracking mechanisms.
+
+Issue: Add discussion of DNSCrypt and DNS Security Extensions (DNSSEC) and similar methods as possible mitigation tools.
+
+### DID Document Integrity Verification
+
+Issue: Add discussion of using <a href="https://tools.ietf.org/html/draft-sporny-hashlink">Hashlinks</a> to aid integrity protection and verification of the DID document.
+
+### In-transit Security
 
 At least TLS 1.2 should be configured to use only strong ciphers suites and to
 use sufficiently large key sizes. As recommendations may be volatile these days,
