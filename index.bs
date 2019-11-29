@@ -100,6 +100,19 @@ behind the top-level domain extension.
 did:web:w3c-ccg.github.io
 ```
 
+## Optional Parameter
+
+To resolve multiple DIDs on the same domain, a name and value for a parameter
+may be included.
+
+web-did = "did:web:" domain-name ":" parameter-name "#" parameter-value
+
+### Example Including Optional Parameter
+
+```
+did:web:w3c-ccg.github.io:user#alice
+```
+
 ## JSON-LD Context Definition
 
 Issue: Add example usage of non-secp keys (ed25519, RSA, etc)
@@ -137,14 +150,23 @@ the following URL:
 did:web:w3c-ccg.github.io/.well-known/did.json
 ```
 
+If an optional parameter and value `user#alice` is specified, the `did.json` will
+be available under the following URL:
+
+```
+did:web:w3c-ccg.github.io/.well-known/did.json?user=alice
+```
+
 ### Read (Resolve)
 
 The following steps must be executed to resolve the DID document from a Web DID:
 
-1. Parse the fully qualified domain name from the identifier.
+1. Parse the fully qualified domain name, and the optional parameter name and
+  value from the identifier.
 2. Generate an HTTPS URL to the expected location of the DID document by
   prepending `https://` and appending `/.well-known/did.json` to the domain
-  name.
+  name. If a parameter name and value have been specified, append them in the
+  form of `?parameter-name=parameter-value`.
 3. Perform an HTTP `GET` request to the URL using an agent that can
   successfully negotiate a secure HTTPS connection, which enforces the security
   requirements as described in
