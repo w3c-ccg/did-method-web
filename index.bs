@@ -134,7 +134,7 @@ For the domain name `w3c-ccg.github.io`, the `did.json` will be available under
 the following URL:
 
 ```
-did:web:w3c-ccg.github.io/.well-known/did.json
+https://w3c-ccg.github.io/.well-known/did.json
 ```
 
 ### Read (Resolve)
