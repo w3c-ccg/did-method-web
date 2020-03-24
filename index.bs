@@ -83,21 +83,29 @@ DID, after the prefix, is specified below.
 ## Method Specific Identifier
 
 The method specific identifier is a fully qualified domain name that is secured
-by a TLS/SSL certificate. The formal rules describing valid domain name syntax
-are described in [RFC 1035](https://tools.ietf.org/html/rfc1035), [RFC
-1123](https://tools.ietf.org/html/rfc1123), and [RFC
-2181](https://tools.ietf.org/html/rfc2181).
+by a TLS/SSL certificate with an optional path to the DID document. The
+formal rules describing valid domain name syntax are described in
+[RFC 1035](https://tools.ietf.org/html/rfc1035),
+[RFC 1123](https://tools.ietf.org/html/rfc1123), and
+[RFC 2181](https://tools.ietf.org/html/rfc2181).
 
 The method specific identifier must match the common name used in the SSL/TLS
-certificate, and it must not include IP addresses, port numbers, or directories
-behind the top-level domain extension.
+certificate, and it must not include IP addresses or port numbers. Directories
+and subdirectories may optionally be included, delimited by colons rather
+than slashes.
 
 	web-did = "did:web:" domain-name
 
-### Example
+    web-did = "did:web:" domain-name * (":" path)
+
+### Examples
 
 ```
 did:web:w3c-ccg.github.io
+```
+
+```
+did:web:w3c-ccg.github.io:user:alice
 ```
 
 ## JSON-LD Context Definition
@@ -128,24 +136,42 @@ Creating a DID is done by
   service
 1. creating the DID document JSON-LD file including a suitable keypair, e.g.,
   using the Koblitz Curve, and storing the `did.json` file under the well-known
-  URL.
+  URL to represent the entire domain, or under the specified path if many DIDs
+  will be resolved in this domain.
 
 For the domain name `w3c-ccg.github.io`, the `did.json` will be available under
 the following URL:
 
 ```
+did:web:w3c-ccg.github.io
+```
+
+```
 https://w3c-ccg.github.io/.well-known/did.json
+```
+
+If an optional path is specified rather the bare domain, the `did.json`
+will be available under the specified path:
+
+```
+did:web:w3c-ccg.github.io:user:alice
+```
+
+```
+https://w3c-ccg.github.io/user/alice/did.json
 ```
 
 ### Read (Resolve)
 
 The following steps must be executed to resolve the DID document from a Web DID:
 
-1. Parse the fully qualified domain name from the identifier.
+1. Replace ":" with "/" in the method specific identifier to obtain the fully
+  qualified domain name and optional path.
 2. Generate an HTTPS URL to the expected location of the DID document by
-  prepending `https://` and appending `/.well-known/did.json` to the domain
-  name.
-3. Perform an HTTP `GET` request to the URL using an agent that can
+  prepending `https://`.
+3. If no path has been specified in the URL, append `/.well-known`.
+4. Append `/did.json` to complete the URL.
+5. Perform an HTTP `GET` request to the URL using an agent that can
   successfully negotiate a secure HTTPS connection, which enforces the security
   requirements as described in
   [Security Considerations](Security-Considerations).
@@ -203,6 +229,30 @@ It is recommended to adhere to
 latest recommendations for hardening TLS configurations.
 
 Delete action can be performed by domain name registrars or DNS lookup services.
+
+### Optional Path Considerations
+
+When optional paths to DID documents are used to resolve documents rather than
+bare domains, verification with signed data proves that the entity in control of
+the file indicated in the path has the private keys. It does not prove that the
+domain operator has the private keys.
+
+This example:
+
+```
+did:web:example.com:u:bob
+```
+
+resolves to the DID document at:
+
+```
+https://example.com/u/bob/did.json
+```
+
+In this scenario, it is probable that example.com has given user Bob control
+over the DID in question, and proofs of control refer to Bob rather than all
+of example.com.
+
 
 ## Reference Implementations
 

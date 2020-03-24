@@ -1167,6 +1167,18 @@ Possible extra rowspan handling
 		margin-left: auto;
 		margin-right: auto;
 	}
+	.overlarge {
+		/* Magic to create good table positioning:
+		   "content column" is 50ems wide at max; less on smaller screens.
+		   Extra space (after ToC + content) is empty on the right.
+
+		   1. When table < content column, centers table in column.
+		   2. When content < table < available, left-aligns.
+		   3. When table > available, fills available + scroll bar.
+		*/ 
+		display: grid;
+		grid-template-columns: minmax(0, 50em);
+	}
 	.overlarge > table {
 		/* limit preferred width of table */
 		max-width: 50em;
@@ -1176,7 +1188,6 @@ Possible extra rowspan handling
 
 	@media (min-width: 55em) {
 		.overlarge {
-			margin-left: calc(13px + 26.5rem - 50vw);
 			margin-right: calc(13px + 26.5rem - 50vw);
 			max-width: none;
 		}
@@ -1184,14 +1195,12 @@ Possible extra rowspan handling
 	@media screen and (min-width: 78em) {
 		body:not(.toc-inline) .overlarge {
 			/* 30.5em body padding 50em content area */
-			margin-left: calc(40em - 50vw) !important;
 			margin-right: calc(40em - 50vw) !important;
 		}
 	}
 	@media screen and (min-width: 90em) {
 		body:not(.toc-inline) .overlarge {
 			/* 4em html margin 30.5em body padding 50em content area */
-			margin-left: 0 !important;
 			margin-right: calc(84.5em - 100vw) !important;
 		}
 	}
@@ -1212,7 +1221,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version e86d5b1b47a216fa66165c234892adc259212183" name="generator">
+  <meta content="Bikeshed version 576ef4f5126e3fb83bf07d9bbe1a64f99aa4944e" name="generator">
   <link href="https://github.com/w3c-ccg/did-method-web" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1423,7 +1432,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">did:web Decentralized Identifier Method Specification</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-09-20">20 September 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2020-03-19">19 March 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1512,16 +1521,21 @@ the DID specification, this string MUST be in lowercase. The remainder of the
 DID, after the prefix, is specified below.</p>
    <h3 class="heading settled" data-level="1.6" id="method-specific-identifier"><span class="secno">1.6. </span><span class="content">Method Specific Identifier</span><a class="self-link" href="#method-specific-identifier"></a></h3>
    <p>The method specific identifier is a fully qualified domain name that is secured
-by a TLS/SSL certificate. The formal rules describing valid domain name syntax
-are described in [RFC 1035](https://tools.ietf.org/html/rfc1035), [RFC
-1123](https://tools.ietf.org/html/rfc1123), and [RFC
-2181](https://tools.ietf.org/html/rfc2181).</p>
+by a TLS/SSL certificate with an optional path to the DID document. The
+formal rules describing valid domain name syntax are described in
+[RFC 1035](https://tools.ietf.org/html/rfc1035),
+[RFC 1123](https://tools.ietf.org/html/rfc1123), and
+[RFC 2181](https://tools.ietf.org/html/rfc2181).</p>
    <p>The method specific identifier must match the common name used in the SSL/TLS
-certificate, and it must not include IP addresses, port numbers, or directories
-behind the top-level domain extension.</p>
+certificate, and it must not include IP addresses or port numbers. Directories
+and subdirectories may optionally be included, delimited by colons rather
+than slashes.</p>
    <p>web-did = "did:web:" domain-name</p>
-   <h4 class="heading settled" data-level="1.6.1" id="example①"><span class="secno">1.6.1. </span><span class="content">Example</span><a class="self-link" href="#example①"></a></h4>
+   <p>web-did = "did:web:" domain-name * (":" path)</p>
+   <h4 class="heading settled" data-level="1.6.1" id="examples"><span class="secno">1.6.1. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h4>
 <pre>did:web:w3c-ccg.github.io
+</pre>
+<pre>did:web:w3c-ccg.github.io:user:alice
 </pre>
    <h3 class="heading settled" data-level="1.7" id="json-ld-context-definition"><span class="secno">1.7. </span><span class="content">JSON-LD Context Definition</span><a class="self-link" href="#json-ld-context-definition"></a></h3>
    <p class="issue" id="issue-4d24b0ff"><a class="self-link" href="#issue-4d24b0ff"></a> Add example usage of non-secp keys (ed25519, RSA, etc)</p>
@@ -1548,21 +1562,34 @@ types and an `ethereumAddress` instead of a `publicKeyHex`.</p>
     <li data-md>
      <p>creating the DID document JSON-LD file including a suitable keypair, e.g.,
   using the Koblitz Curve, and storing the `did.json` file under the well-known
-  URL.</p>
+  URL to represent the entire domain, or under the specified path if many DIDs
+  will be resolved in this domain.</p>
    </ol>
    <p>For the domain name `w3c-ccg.github.io`, the `did.json` will be available under
 the following URL:</p>
-<pre>did:web:w3c-ccg.github.io/.well-known/did.json
+<pre>did:web:w3c-ccg.github.io
+</pre>
+<pre>https://w3c-ccg.github.io/.well-known/did.json
+</pre>
+   <p>If an optional path is specified rather the bare domain, the `did.json`
+will be available under the specified path:</p>
+<pre>did:web:w3c-ccg.github.io:user:alice
+</pre>
+<pre>https://w3c-ccg.github.io/user/alice/did.json
 </pre>
    <h4 class="heading settled" data-level="1.8.2" id="read-resolve"><span class="secno">1.8.2. </span><span class="content">Read (Resolve)</span><a class="self-link" href="#read-resolve"></a></h4>
    <p>The following steps must be executed to resolve the DID document from a Web DID:</p>
    <ol>
     <li data-md>
-     <p>Parse the fully qualified domain name from the identifier.</p>
+     <p>Replace ":" with "/" in the method specific identifier to obtain the fully
+  qualified domain name and optional path.</p>
     <li data-md>
      <p>Generate an HTTPS URL to the expected location of the DID document by
-  prepending `https://` and appending `/.well-known/did.json` to the domain
-  name.</p>
+  prepending `https://`.</p>
+    <li data-md>
+     <p>If no path has been specified in the URL, append `/.well-known`.</p>
+    <li data-md>
+     <p>Append `/did.json` to complete the URL.</p>
     <li data-md>
      <p>Perform an HTTP `GET` request to the URL using an agent that can
   successfully negotiate a secure HTTPS connection, which enforces the security
@@ -1622,6 +1649,20 @@ thumb, the following must be used:</p>
 [OWASP’s](https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet)
 latest recommendations for hardening TLS configurations.</p>
    <p>Delete action can be performed by domain name registrars or DNS lookup services.</p>
+   <h4 class="heading settled" data-level="1.9.4" id="optional-path-considerations"><span class="secno">1.9.4. </span><span class="content">Optional Path Considerations</span><a class="self-link" href="#optional-path-considerations"></a></h4>
+   <p>When optional paths to DID documents are used to resolve documents rather than
+bare domains, verification with signed data proves that the entity in control of
+the file indicated in the path has the private keys. It does not prove that the
+domain operator has the private keys.</p>
+   <p>This example:</p>
+<pre>did:web:example.com:u:bob
+</pre>
+   <p>resolves to the DID document at:</p>
+<pre>https://example.com/u/bob/did.json
+</pre>
+   <p>In this scenario, it is probable that example.com has given user Bob control
+over the DID in question, and proofs of control refer to Bob rather than all
+of example.com.</p>
    <h3 class="heading settled" data-level="1.10" id="reference-implementations"><span class="secno">1.10. </span><span class="content">Reference Implementations</span><a class="self-link" href="#reference-implementations"></a></h3>
    <p>The code at
 [https://github.com/uport-project/https-did-resolver](https://github.com/uport-project/https-did-resolver)
