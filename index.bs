@@ -177,11 +177,19 @@ The following steps must be executed to resolve the DID document from a Web DID:
     requirements as described in
     [Security Considerations](Security-Considerations).
 
+Issue: The read mechanism does not provide any sort of auditability on the DID, which leaves this DID Method open to insider-threat attacks, among others.
+
+Issue: Reads enable pervasive tracking of DID use across the Internet. There is currently no mitigation for this privacy-violating mechanism.
+
 ### Update
 
 To update the DID document, the `did.json`has to be updated. Please note that
 the DID will remain the same, but the contents of the DID document could change,
 e.g., by including a new verification key or adding service endpoints.
+
+Issue: There is no authentication or authorization mechanism applied to the DID Document, leaving it unprotected from modification by an attacker.
+
+Issue: There is no HTTP API specified for the update process leaving programmatic registrations and management to be defined by a proprietary process.
 
 ### Delete (Revoke)
 
