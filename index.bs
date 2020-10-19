@@ -190,6 +190,36 @@ longer publicly available due to any other means.
 
 ## Security and Privacy Considerations
 
+### High Risk of Pervasive Tracking
+
+The reliance of this DID Method on traditional HTTP-based Web Architecture can
+enable the same sorts of privacy-invasive tracking technologies that are in
+widespread use today (2020). For example, verification of a Verifiable
+Presentation might result in resolving a did:web DID by the verifier. This
+enables the DID Method registry to know when and where every did:web DID on the
+ledger is used, which is useful when tracking behaviour of the DID subject.
+
+This concern is not necessarily problematic for public entities, such as
+government organizations or some corporations, but is highly problematic
+for individuals from a privacy perspective.
+
+It is strongly advised that a privacy violation will occur if this DID Method
+is used for DIDs where the DID subject requires privacy. Examples of
+inappropriate use of this DID Method include, but are not limited to:
+government-issued DIDs to non-employees, corporate-issued DIDs to non-employees,
+and website-issued DIDs to people that are not in control of the website
+infrastructure.
+
+To put a finer point on the privacy concerns of this particular DID Method.
+Government-issued did:web DIDs to citizens enable pervasive tracking of
+citizens. Corporate-issued did:web DIDs to individuals enable pervasive tracking
+of those individuals. Website-issued did:web DIDs to users enable pervasive
+tracking of those users.
+
+It is strongly advised that governments and corporations strongly advise
+individuals pick a DID Method that is more auditable and privacy-preserving
+than this DID Method.
+
 ### DNS Considerations
 
 Issue: Add warning - all resolutions of a did:web identifier using DNS are centrally logged, enabling pervasive tracking mechanisms.
