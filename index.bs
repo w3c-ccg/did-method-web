@@ -11,8 +11,9 @@ Max ToC Depth: 2
 Editor: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
 Editor: Dmitri Zagidulin, dzagidulin@gmail.com
 Editor: Amy Guy, amy@rhiaro.co.uk
-Authors: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
-Authors: Mike Xu, Consensys https://consensys.net, mike.xu@consensy.net
+!Authors: Oliver Terbu, Consensys https://consensys.net, oliver.terbu@consensys.net
+!Authors: Mike Xu, Consensys https://consensys.net, mike.xu@consensy.net
+Abstract: DIDs that target a distributed ledger face significant practical challenges in bootstrapping enough meaningful trusted data around identities to incentivize mass adoption. We propose using a new DID method in conjunction with blockchain-based DIDs that allows them to bootstrap trust using a web domain's existing reputation.
 </pre>
 
 ## Copyright
@@ -133,11 +134,11 @@ The definition of the Web DID JSON-LD context is:
 Creating a DID is done by
 1. applying at a domain name registrar for use of a domain name and
 1. storing the location of a hosting service, the IP address at a DNS lookup
-  service
+    service
 1. creating the DID document JSON-LD file including a suitable keypair, e.g.,
-  using the Koblitz Curve, and storing the `did.json` file under the well-known
-  URL to represent the entire domain, or under the specified path if many DIDs
-  will be resolved in this domain.
+    using the Koblitz Curve, and storing the `did.json` file under the well-known
+    URL to represent the entire domain, or under the specified path if many DIDs
+    will be resolved in this domain.
 
 For the domain name `w3c-ccg.github.io`, the `did.json` will be available under
 the following URL:
@@ -166,15 +167,15 @@ https://w3c-ccg.github.io/user/alice/did.json
 The following steps must be executed to resolve the DID document from a Web DID:
 
 1. Replace ":" with "/" in the method specific identifier to obtain the fully
-  qualified domain name and optional path.
+    qualified domain name and optional path.
 2. Generate an HTTPS URL to the expected location of the DID document by
-  prepending `https://`.
+    prepending `https://`.
 3. If no path has been specified in the URL, append `/.well-known`.
 4. Append `/did.json` to complete the URL.
 5. Perform an HTTP `GET` request to the URL using an agent that can
-  successfully negotiate a secure HTTPS connection, which enforces the security
-  requirements as described in
-  [Security Considerations](Security-Considerations).
+    successfully negotiate a secure HTTPS connection, which enforces the security
+    requirements as described in
+    [Security Considerations](Security-Considerations).
 
 ### Update
 
@@ -208,10 +209,10 @@ thumb, the following must be used:
 
 - Ephemeral keys are to be used.
 - ECDHE with one of the strong curves {X25519, brainpoolP384r1, NIST P-384,
-  brainpoolP256r1, NIST P-256} shall be used as key exchange.
+    brainpoolP256r1, NIST P-256} shall be used as key exchange.
 - AESGCM or ChaCha20 with 256 bit large keys shall be used for bulk encryption
 - ECDSA with one of the strong curves {brainpoolP384r1, NIST P-384,
-  brainpoolP256r1, NIST P-256} or RSA (at least 3072) shall be used.
+    brainpoolP256r1, NIST P-256} or RSA (at least 3072) shall be used.
 - Authenticated Encryption with Associated Data (AEAD) shall be used as Mac.
 - At least SHA256 shall be used, but SHA384 or POLY1305 are recommended.
 
