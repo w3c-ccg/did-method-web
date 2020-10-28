@@ -189,7 +189,7 @@ e.g., by including a new verification key or adding service endpoints.
 
 Issue: This DID method does not specify any authentication or authorization mechanism for writing to the DID Document, leaving it up to implementations to protect from modification by an attacker.
 
-Issue: There is no HTTP API specified for the update process leaving programmatic registrations and management to be defined by a proprietary process.
+Note: There is no HTTP API specified for the update process leaving programmatic registrations and management to be defined by each implementation.
 
 ### Delete (Revoke)
 
