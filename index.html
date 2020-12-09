@@ -371,6 +371,21 @@ DID Document. To prevent this type of issue, usage of DNSSEC which is defined in
 <a href="https://tools.ietf.org/html/rfc4034">RFC4034</a>, and 
 <a href="https://tools.ietf.org/html/rfc4035">RFC4035</a>.
             </p>
+
+          <h4>
+DNS Privacy Considerations
+          </h4>
+            <p>
+Due to the nature of the did:web method relying upon a DNS in order to resolve
+the web server, all resolutions of a did:web identifier have the potential to be
+tracked by a DNS provider. Additionally, due to the DID Document being stored on
+a web server, each time the DID Document resource is retrieved, the web server
+has the ability to track the resolution of the DID Document. To mitigate the
+issue of the relying party being tracked when resolving the DID Document the
+relying party should look to either use a trusted universal resolver service to
+gain herd privacy, utilize a VPN service or perform a resolution over the TOR
+network.
+            </p>
         </section>
 
         <section>
