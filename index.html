@@ -289,6 +289,11 @@ Perform an HTTP <code>GET</code> request to the URL using an agent that can
 successfully negotiate a secure HTTPS connection, which enforces the security
 requirements as described in <a href="#security-and-privacy-considerations"></a>.
             </li>
+            <li>
+When performing the DNS resolution during the HTTP <code>GET</code> request, the
+client SHOULD utilize <div RFC8484=""></div> in order to prevent
+Man-in-the-middle attacks as well as to prevent tracking of the lookup.
+            </li>
           </ol>
 
           <p class="issue" data-number="13">
@@ -345,17 +350,27 @@ Security and privacy considerations
           <h3>
 DNS Considerations
           </h3>
-
-          <p class="issue" title="DNS tracking">
-Add warning - all resolutions of a did:web identifier using DNS are centrally
-logged, enabling pervasive tracking mechanisms.
-          </p>
-
-          <p class="issue" title="DNS security">
-Add discussion of DNSCrypt and DNS Security Extensions (DNSSEC) and similar
-methods as possible mitigation tools.
-          </p>
-
+          <h4>
+DNS Security Considerations
+          </h4>          
+            <p>
+DNS presents many of the attack vectors that enable active security and privacy
+attacks on the did:web method and it's important that implementors address these
+concerns via proper configuration of DNS. For example, without proper security
+of the DNS resolution via <a href="https://tools.ietf.org/html/rfc8484">DNS over HTTPS</a> it's possible for
+active attackers to intercept the result of the DNS resolution via a Man in the
+Middle attack which would point at a malicious server with the incorrect DID
+Document.
+            </p>
+            <p>
+Additionally, implementors should be aware of issues presented by a Spoofed DNS
+records where the record returned by a malicious DNS Server is inauthentic and
+allows the record to be pointed at a malicious server which contains a different
+DID Document. To prevent this type of issue, usage of DNSSEC which is defined in
+<a href="https://tools.ietf.org/html/rfc4033">RFC4033</a>, 
+<a href="https://tools.ietf.org/html/rfc4034">RFC4034</a>, and 
+<a href="https://tools.ietf.org/html/rfc4035">RFC4035</a>.
+            </p>
         </section>
 
         <section>
