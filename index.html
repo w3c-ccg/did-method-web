@@ -197,9 +197,10 @@ The formal rules describing valid domain name syntax are described in
         </p>
         <p>
 The method specific identifier MUST match the common name used in the SSL/TLS
-certificate, and it MUST NOT include IP addresses or port numbers. Directories
-and subdirectories MAY optionally be included, delimited by colons rather
-than slashes.
+certificate, and it MUST NOT include IP addresses. A port MAY be included and
+the colon MUST be percent encoded to prevent a conflict with paths. Directories
+and subdirectories MAY optionally be included, delimited by colons rather than
+slashes.
         </p>
 
         <pre class="nohighlight">
@@ -211,6 +212,8 @@ web-did = "did:web:" domain-name * (":" path)
 did:web:w3c-ccg.github.io
 
 did:web:w3c-ccg.github.io:user:alice
+
+did:web:example.com%3A3000
         </pre>
       </section>
 
@@ -284,6 +287,15 @@ did:web:w3c-ccg.github.io:user:alice
  -> https://w3c-ccg.github.io/user/alice/did.json
           </pre>
 
+          <p>
+If an optional port is specified on the domain, the port colon splitting the
+host and the port MUST be percent encoded to prevent collision with the path.
+          </p>
+
+          <pre class="example nohighlight" title="Creating the DID with optional path and port">
+did:web:example.com%3A3000:user:alice 
+ -> https://example.com:3000/user/alice/did.json
+          </pre>
         </section>
 
         <section>
@@ -299,6 +311,9 @@ DID:
             <li>
 Replace ":" with "/" in the method specific identifier to obtain the fully
 qualified domain name and optional path.
+            </li>
+            <li>
+If the domain contains a port percent decode the colon.
             </li>
             <li>
 Generate an HTTPS URL to the expected location of the DID document by
