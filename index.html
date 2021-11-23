@@ -98,13 +98,19 @@
   <body>
     <section id="abstract">
       <p>
-DIDs that target a distributed ledger face significant practical challenges in
-bootstrapping enough meaningful trusted data around identities to incentivize
-mass adoption. We propose using a new DID method in conjunction with
-blockchain-based DIDs that allows them to bootstrap trust using a web domain's
-existing reputation.
+Basic Decentralized Identifiers that meet the needs of simple use cases should be
+easily implemented without the complexity or energy consumption associated with the
+advanced capabilities of distributed ledgers.  DIDs that do target a distributed
+ledger also face significant practical challenges in bootstrapping enough meaningful
+trusted data around identities to incentivize mass adoption.
+      </p>
+      <p>
+We propose a DID method that leverages existing infrastructure efficiently,
+is very easily implemented, and can be used in conjunction with blockchain-based
+DIDs to enable them to bootstrap trust using a web domain's existing reputation.
       </p>
     </section>
+
     <section id="sotd">
     </section>
     <section>
@@ -206,38 +212,17 @@ slashes.
         <pre class="nohighlight">
 web-did = "did:web:" domain-name
 web-did = "did:web:" domain-name * (":" path)
+web-did = "did:web:" domain-name * (":" path) * (":" filename)
         </pre>
 
         <pre class="example nohighlight" title="Example Web Method DIDs">
 did:web:w3c-ccg.github.io
-
 did:web:w3c-ccg.github.io:user:alice
-
 did:web:example.com%3A3000
+did:web:example.com%3A3000:bob%3Awork
+did:web:example.com:christine:111.json
+did:web:example.com:christine:222.didjson
         </pre>
-      </section>
-
-      <section>
-        <h2>
-JSON-LD context definition
-        </h2>
-        <p>
-The definition of the Web DID JSON-LD context is:
-        </p>
-
-        <pre title="Web DID method JSON-LD context">
-{
-    "@context":
-    {
-        "ethereumAddress": "https://github.com/uport-project/ethr-did-resolver#ethereumAddress",
-        "Secp256k1VerificationKey2018": "https://github.com/uport-project/ethr-did-resolver#Secp256k1VerificationKey2018",
-        "Secp256k1SignatureAuthentication2018": "https://github.com/uport-project/ethr-did-resolver#Secp256k1VerificationKey2018",
-    }
-}
-        </pre>
-        <p class="issue" title="Update context">
-Bring the context definition in line with latest DID Core.
-        </p>
       </section>
 
       <section>
@@ -260,41 +245,55 @@ storing the location of a hosting service, the IP address at a DNS lookup
 service
             </li>
             <li>
-creating the DID document JSON-LD file including a suitable keypair, e.g.,
-using the Koblitz Curve, and storing the <code>did.json</code> file under the
-well-known URL to represent the entire domain, or under the specified path if
-many DIDs will be resolved in this domain.
+creating the DID document JSON, and storing the file as the index of the
+<code>/.well-known/did/</code> directory to represent the entire domain, or as
+the index of the specified path, or as a file with the filename and path matching
+the method specific identifier.
             </li>
           </ol>
 
           <p>
-For example, for the domain name `w3c-ccg.github.io`, the `did.json` will be
-available under the following URL:
+The well-known URL for a domain name is the simplest example:
           </p>
-
-          <pre class="example nohighlight" title="Creating the DID">
+          <pre class="example nohighlight" title="DID at well known path">
 did:web:w3c-ccg.github.io
- -> https://w3c-ccg.github.io/.well-known/did.json
+ -> https://w3c-ccg.github.io/.well-known/did/
           </pre>
 
           <p>
-If an optional path is specified rather the bare domain, the
-<code>did.json</code> will be available under the specified path:
+If an optional path is specified in addition to the bare domain, the
+file will be available as the index of the specified path:
           </p>
-
-          <pre class="example nohighlight" title="Creating the DID with optional path">
+          <pre class="example nohighlight" title="DID with optional path">
 did:web:w3c-ccg.github.io:user:alice
- -> https://w3c-ccg.github.io/user/alice/did.json
+ -> https://w3c-ccg.github.io/user/alice/
           </pre>
 
           <p>
-If an optional port is specified on the domain, the port colon splitting the
-host and the port MUST be percent encoded to prevent collision with the path.
+If the full path including the file is specified, the file will be available at
+the specified path:
           </p>
+          <pre class="example nohighlight" title="DID with path and filename">
+did:web:w3c-ccg.github.io:user:alice:111.didjson
+ -> https://w3c-ccg.github.io/user/alice/111.didjson
+          </pre>
 
-          <pre class="example nohighlight" title="Creating the DID with optional path and port">
-did:web:example.com%3A3000:user:alice 
- -> https://example.com:3000/user/alice/did.json
+          <p>
+If an optional port is specified on the domain, the colon splitting the host and
+the port MUST be percent encoded to prevent collision with the path.
+          </p>
+          <pre class="example nohighlight" title="DID with port and path">
+did:web:example.com%3A3000:user:alice
+ -> https://example.com:3000/user/alice/
+          </pre>
+
+          <p>
+If an element of the path contains a colon, the colon MUST be percent encoded to
+avoid being replaced with a slash:
+          </p>
+          <pre class="example nohighlight" title="DID with port, path, and colon">
+did:web:example.com:user:alice%3Awork
+ -> https://example.com/user/alice:work/
           </pre>
         </section>
 
@@ -310,20 +309,26 @@ DID:
           <ol>
             <li>
 Replace ":" with "/" in the method specific identifier to obtain the fully
-qualified domain name and optional path.
+qualified domain name, optional path, and optional filename.
             </li>
             <li>
-If the domain contains a port percent decode the colon.
+Replace "%3A" with ":" in the first segment of method specific identifier
+containing the fully qualified domain name to support optional port numbers.
             </li>
             <li>
 Generate an HTTPS URL to the expected location of the DID document by
 prepending <code>https://</code>.
             </li>
             <li>
-If no path has been specified in the URL, append <code>/.well-known</code>.
+If the method specific identifier ends with a filename extension associated with
+a representation of a DID, URL resolution is complete - skip to the HTTP GET.
+Filename extensions are listed in the MIME Types note above.
             </li>
             <li>
-Append <code>/did.json</code> to complete the URL.
+If no path has been specified in the URL, append <code>/.well-known/did</code>.
+            </li>
+            <li>
+Append <code>/</code> to complete the URL.
             </li>
             <li>
 Perform an HTTP <code>GET</code> request to the URL using an agent that can
@@ -332,11 +337,20 @@ requirements as described in <a href="#security-and-privacy-considerations"></a>
             </li>
             <li>
 When performing the DNS resolution during the HTTP <code>GET</code> request, the
-client SHOULD utilize <div RFC8484=""></div> in order to prevent
-Man-in-the-middle attacks as well as to prevent tracking of the lookup.
+client SHOULD utilize DNS over HTTPS [[RFC8484]] to minimize tracking of the lookup.
+            </li>
+            <li>
+If a specific DID representation is preferred, and the method specific identifier
+resolves to a path rather than a full file, a client MAY specify the associated
+content type in the <code>Accept:</code> HTTP request header.
+            </li>
+            <li>
+If the <code>Accept:</code> HTTP request header includes a preferred DID
+representation, and the URL represents a directory, the web server SHOULD
+attempt to meet that preference when selecting an index file to return by matching
+the content type to the filename extension.
             </li>
           </ol>
-
           <p class="issue" data-number="13">
 The read mechanism does not provide any sort of auditability on the DID, which
 leaves this DID Method open to insider-threat attacks, among others.
@@ -353,10 +367,16 @@ currently no mitigation for this privacy-violating mechanism.
 Update
           </h3>
           <p>
-To update the DID document, the <code>did.json</code> has to be updated.
+To update the DID document, the associated file or files have to be updated.
 Please note that the DID will remain the same, but the contents of the DID
 document could change, e.g., by including a new verification key or adding
 service endpoints.
+          </p>
+          <p>
+In the event that multiple representations of the same DID are present in a
+directory, updates of all representations MUST be made when any representation is
+updated. Key material and service endpoints MUST be consistent across representations
+of a DID. Other metadata SHOULD be consistent across representations.
           </p>
 
           <p class="issue" data-number="12">
@@ -368,7 +388,7 @@ from modification by an attacker.
           <p class="note" title="HTTP API">
 There is no HTTP API specified for the update process leaving programmatic
 registrations and management to be defined by each implementation.
-          </p>
+</p>
         </section>
 
         <section>
@@ -376,10 +396,53 @@ registrations and management to be defined by each implementation.
 Deactivate (Revoke)
           </h3>
           <p>
-To delete the DID document, the <code>did.json</code> has to be removed or has
-to be no longer publicly available due to any other means.
+To delete the DID document, the associated file or files have to be removed or
+made no longer publicly available due to any other means.
           </p>
         </section>
+      </section>
+
+      <section>
+      <h2>
+Webserver Configuration
+      </h2>
+      <h3>
+MIME Types
+      </h3>
+      <p>
+Webservers MUST be configured to associate proper content types with registered
+filename extensions.
+      <pre class="note nohighlight" title="MIME Types">
+        application/did+json                  didjson
+        application/json                      json
+      </pre>
+      </p>
+      <h3>
+Multiple DID Representations
+      </h3>
+      <p>
+DIDs in directories MAY support multiple representations. The server MUST support
+at least one of the DID representatons listed in the note above, and MAY support
+more than one. If multiple representations are supported, the server MUST prefer
+the representation in the HTTP <code>Accept:</code> request header when selecting
+an index file to return.
+      </p>
+      <h3>
+Cross Origin Browser Access
+      </h3>
+      <p>
+Webservers MUST be configured with appropriate CORS headers if web browser
+clients operating in other domains will need access to the DID documents. [[CORS]]
+specifies headers to enable browser cross-domain access.
+      </p>
+      <h3>
+Cache Control
+      </h3>
+      <p>
+Webservers MUST be configured with appropriate cache control headers if CDN or
+caching is used to deliver the DID documents. [[RFC7234]] specifies headers to
+control response cache behavior.
+      </p>
       </section>
 
       <section class="informative">
@@ -539,10 +602,10 @@ This example:
 did:web:example.com:u:bob
           </pre>
           <p>
-resolves to the DID document at:
+resolves to the DID document at the index of:
           </p>
           <pre class="nohighlight">
-https://example.com/u/bob/did.json
+https://example.com/u/bob/
           </pre>
           <p>
 In this scenario, it is probable that example.com has given user Bob control
