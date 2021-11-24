@@ -407,6 +407,16 @@ made no longer publicly available due to any other means.
 Webserver Configuration
       </h2>
       <h3>
+Index Files
+      </h3>
+      <p>
+Webserver software typically supports returning specified files when a URL path
+matches a directory rather than a file. These are generally refered to as index
+files, and <code>index.html</code> is a common default. To resolve method specific
+identifiers that have no filename and extension, webservers MUST be configured
+to return the appropriate DID file when a request path matches a DID directory.
+      </p>
+      <h3>
 MIME Types
       </h3>
       <p>
