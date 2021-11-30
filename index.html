@@ -432,17 +432,18 @@ an index file to return.
 Cross Origin Browser Access
       </h3>
       <p>
-Webservers MUST be configured with appropriate CORS headers if web browser
-clients operating in other domains will need access to the DID documents. [[CORS]]
-specifies headers to enable browser cross-domain access.
+Implementations involving web browser clients operating in other domains will
+need access to the DID documents. [[CORS]] specifies headers to enable browser
+cross-domain access.
       </p>
       <h3>
 Cache Control
       </h3>
       <p>
-Webservers MUST be configured with appropriate cache control headers if CDN or
-caching is used to deliver the DID documents. [[RFC7234]] specifies headers to
-control response cache behavior.
+Web browsers, proxies, and CDNs Webservers often cache HTTP responses. Select
+appropriate cache control header values based on the specific requirements of the
+implementation to avoid stale DID documents. [[RFC7234]] specifies headers to
+control cache behavior.
       </p>
       </section>
 
