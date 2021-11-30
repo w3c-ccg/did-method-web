@@ -205,7 +205,6 @@ slashes.
         <pre class="nohighlight">
 web-did = "did:web:" domain-name
 web-did = "did:web:" domain-name * (":" path)
-web-did = "did:web:" domain-name * (":" path) * (":" filename)
         </pre>
 
         <pre class="example nohighlight" title="Example Web Method DIDs">
@@ -213,8 +212,6 @@ did:web:w3c-ccg.github.io
 did:web:w3c-ccg.github.io:user:alice
 did:web:example.com%3A3000
 did:web:example.com%3A3000:bob%3Awork
-did:web:example.com:christine:111.json
-did:web:example.com:christine:222.didjson
         </pre>
       </section>
 
@@ -263,15 +260,6 @@ did:web:w3c-ccg.github.io:user:alice
           </pre>
 
           <p>
-If the full path including the file is specified, the file will be available at
-the specified path:
-          </p>
-          <pre class="example nohighlight" title="DID with path and filename">
-did:web:w3c-ccg.github.io:user:alice:111.didjson
- -> https://w3c-ccg.github.io/user/alice/111.didjson
-          </pre>
-
-          <p>
 If an optional port is specified on the domain, the colon splitting the host and
 the port MUST be percent encoded to prevent collision with the path.
           </p>
@@ -302,7 +290,7 @@ DID:
           <ol>
             <li>
 Replace ":" with "/" in the method specific identifier to obtain the fully
-qualified domain name, optional path, and optional filename.
+qualified domain name and optional path.
             </li>
             <li>
 Replace "%3A" with ":" in the first segment of method specific identifier
@@ -311,11 +299,6 @@ containing the fully qualified domain name to support optional port numbers.
             <li>
 Generate an HTTPS URL to the expected location of the DID document by
 prepending <code>https://</code>.
-            </li>
-            <li>
-If the method specific identifier ends with a filename extension associated with
-a representation of a DID, URL resolution is complete - skip to the HTTP GET.
-Filename extensions are listed in the MIME Types note above.
             </li>
             <li>
 If no path has been specified in the URL, append <code>/.well-known/did</code>.
@@ -333,15 +316,14 @@ When performing the DNS resolution during the HTTP <code>GET</code> request, the
 client SHOULD utilize DNS over HTTPS [[RFC8484]] to minimize tracking of the lookup.
             </li>
             <li>
-If a specific DID representation is preferred, and the method specific identifier
-resolves to a path rather than a full file, a client MAY specify the associated
+If a specific DID representation is preferred a client MAY specify the associated
 content type in the <code>Accept:</code> HTTP request header.
             </li>
             <li>
 If the <code>Accept:</code> HTTP request header includes a preferred DID
-representation, and the URL represents a directory, the web server SHOULD
-attempt to meet that preference when selecting an index file to return by matching
-the content type to the filename extension.
+representation the web server SHOULD attempt to meet that preference when
+selecting an index file to return by matching the content type to the filename
+extension.
             </li>
           </ol>
           <p class="issue" data-number="13">
