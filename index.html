@@ -261,8 +261,8 @@ service
             </li>
             <li>
 creating the DID document JSON-LD file including a suitable keypair, e.g.,
-using the Koblitz Curve, and storing the <code>did.json</code> file under the
-well-known URL to represent the entire domain, or under the specified path if
+using the Koblitz Curve, and storing the <code>did.json</code> file in the root
+directory to represent the entire domain, or under the specified path if
 many DIDs will be resolved in this domain.
             </li>
           </ol>
@@ -274,7 +274,7 @@ available under the following URL:
 
           <pre class="example nohighlight" title="Creating the DID">
 did:web:w3c-ccg.github.io
- -> https://w3c-ccg.github.io/.well-known/did.json
+ -> https://w3c-ccg.github.io/did.json
           </pre>
 
           <p>
@@ -293,7 +293,7 @@ host and the port MUST be percent encoded to prevent collision with the path.
           </p>
 
           <pre class="example nohighlight" title="Creating the DID with optional path and port">
-did:web:example.com%3A3000:user:alice 
+did:web:example.com%3A3000:user:alice
  -> https://example.com:3000/user/alice/did.json
           </pre>
         </section>
@@ -309,21 +309,25 @@ DID:
 
           <ol>
             <li>
+Remove the <code>did:web:</code> prefix.
+            </li>
+            <li>
 Replace ":" with "/" in the method specific identifier to obtain the fully
 qualified domain name and optional path.
             </li>
             <li>
-If the domain contains a port percent decode the colon.
+If the domain contains a port, percent decode the colon.
             </li>
             <li>
 Generate an HTTPS URL to the expected location of the DID document by
 prepending <code>https://</code>.
             </li>
             <li>
-If no path has been specified in the URL, append <code>/.well-known</code>.
+If no path has been specified in the resulting URL, or if the path does not end
+in a <code>/</code> character, append <code>/</code>.
             </li>
             <li>
-Append <code>/did.json</code> to complete the URL.
+Append <code>did.json</code> to complete the URL.
             </li>
             <li>
 Perform an HTTP <code>GET</code> request to the URL using an agent that can

@@ -12,6 +12,8 @@ https://w3c-ccg.github.io/
 
 ## Editing and building the specification
 
-This specification uses [ReSpec](https://github.com/w3c/respec/) html. Just edit `index.html` and the draft will be rendered correctly.
+This specification uses [ReSpec](https://github.com/w3c/respec/) html. 
+Just edit `index.html` and the draft will be rendered correctly.
 
-When it's time to do a static snapshot, we use the ReSpec UI in the browser to export static HTML.
+When it's time to do a static snapshot, we use the ReSpec UI in the browser to 
+export static HTML.
