@@ -325,10 +325,9 @@ document could change, e.g., by including a new verification key or adding
 service endpoints.
           </p>
 
-          <p class="issue" data-number="12">
-This DID method does not specify any authentication or authorization mechanism
-for writing to the DID Document, leaving it up to implementations to protect
-from modification by an attacker.
+          <p class="note">
+Managing updates to the DID Document using a version control system such as git and 
+continious integration system such as GitHub Actions can provide support for authenticationa and audit history.
           </p>
 
           <p class="note" title="HTTP API">
