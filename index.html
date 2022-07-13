@@ -13,6 +13,7 @@
         wgPublicList: "public-credentials",
         editors: [{
           name: "Michael Prorock",
+          url: "https://www.linkedin.com/in/mprorock/",
           email: "mprorock@mesur.io",
           company: "mesur.io",
           companyURL: "https://mesur.io/"
@@ -127,14 +128,10 @@ information about DIDs and DID method specifications, please also see the
       </section>
       <section>
         <h2>
-Example
+Examples
         </h2>
 
-        <p class="issue" title="More examples">
-Add non-ethereum example keys (ed25519, RSA, etc)
-        </p>
-
-        <pre class="example" title="Example did:web DID document">
+        <pre class="example" title="Example did:web DID document using Secp256">
 {
   "@context": "https://www.w3.org/ns/did/v1",
   "id": "did:web:example.com",
@@ -149,6 +146,54 @@ Add non-ethereum example keys (ed25519, RSA, etc)
   ]
 }
         </pre>
+        
+        <pre class="example" title="Example did:web DID document using JWS2020">
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+  "verificationMethod": [
+    {
+      "id": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      "type": "JsonWebKey2020",
+      "controller": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "0-e2i2_Ua1S5HbTYnVB0lj2Z2ytXu2-tYmDFf8f5NjU"
+      }
+    },
+    {
+      "id": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6LSt8Cke1XG6vthTpdek9xx6a5NKz8gEuYPQHJPhRjfREAC",
+      "type": "JsonWebKey2020",
+      "controller": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "x": "9GXjPGGvmRq9F6Ng5dQQ_s31mfhxrcNZxRGONrmH30k"
+      }
+    },
+    {
+      "id": "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+      "type": "JsonWebKey2020",
+      "controller": "did:example:123",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-256",
+        "x": "38M1FDts7Oea7urmseiugGW7tWc3mLpJh6rKe7xINZ8",
+        "y": "nDQW6XZ7b_u2Sy9slofYLlG03sOEoug3I0aAPQ0exs4"
+      }
+    },
+  ],
+  "authentication": [
+    "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+    "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw"
+  ]
+}
+        </pre>
+        
       </section>
     </section>
 
@@ -161,14 +206,17 @@ Web DID Method Specification
         <h2>
 Target system
         </h2>
-        <p class="issue" title="DIDs in DNS">
-Explain the difference from / relationship with the Decentralized Identifier
-in DNS [[?DID-DNS]] spec.
-        </p>
+        
         <p>
 The target system of the Web DID method is the web host that the domain name
 described by the DID resolves to when queried through the Domain Name System
 (DNS).
+        </p>
+        
+        <p>
+          Unlike [[?DID-DNS]], where the DID is identified as part of a DNS URI 
+          Resource Record, did:web permits both discover of and delivery of a 
+          DID document over HTTPS.
         </p>
       </section>
 
@@ -222,6 +270,12 @@ did:web:example.com%3A3000
 DID method operations
         </h2>
         <section>
+          <p>
+There is no HTTP API specified for did:web method operations process leaving programmatic
+registrations and management to be defined by each implementation, or based on their own
+requirements in their web environment.
+          </p>
+          </p>
           <h3>
 Create (Register)
           </h3>
@@ -314,15 +368,6 @@ being resolved.
             </li>
           </ol>
 
-          <p class="issue" data-number="13">
-The read mechanism does not provide any sort of auditability on the DID, which
-leaves this DID Method open to insider-threat attacks, among others.
-          </p>
-
-          <p class="issue" data-number="14">
-Reads enable pervasive tracking of DID use across the Internet. There is
-currently no mitigation for this privacy-violating mechanism.
-          </p>
         </section>
 
         <section>
@@ -336,16 +381,6 @@ document could change, e.g., by including a new verification key or adding
 service endpoints.
           </p>
 
-          <p class="issue" data-number="12">
-This DID method does not specify any authentication or authorization mechanism
-for writing to the DID Document, leaving it up to implementations to protect
-from modification by an attacker.
-          </p>
-
-          <p class="note" title="HTTP API">
-There is no HTTP API specified for the update process leaving programmatic
-registrations and management to be defined by each implementation.
-          </p>
         </section>
 
         <section>
@@ -364,6 +399,20 @@ to be no longer publicly available due to any other means.
 Security and privacy considerations
         </h2>
 
+        <section>
+          <h3>
+          Authentication and Authorization
+          </h3>
+          <p>
+This DID method does not specify any authentication or authorization mechanism
+for writing to, removing or creating the DID Document, leaving it up to implementations 
+to protect did:web documents as with any other web resource. 
+          </p>
+          <p>
+It is up to implementer to secure their web environments according to industry best practices 
+for updating or otherwise managing web content based on the specific needs of their threat environment.
+          </p>
+        </section>
         <section>
           <h3>
 DNS Considerations
@@ -413,10 +462,15 @@ network. Another emerging solution that will be useful to address this is <a
 DID Document Integrity Verification
           </h3>
 
-          <p class="issue" title="Hashlinks">
-Add discussion of using <a
-href="https://tools.ietf.org/html/draft-sporny-hashlink">Hashlinks</a> to aid
-integrity protection and verification of the DID document.
+          <p>
+Additional mechanisms such as <a
+href="https://tools.ietf.org/html/draft-sporny-hashlink">Hashlinks</a> MAY be
+utilized to aid in integrity protection and verification of the DID document.
+<br />
+Under such a scenario the hash of the DID document could be recorded to a 
+trusted or distributed store and the retriever of the DID document would
+generate a hash of the DID document in their posession with the hash retrieved
+to ensure that no tampering with the DID document had occurred.
           </p>
 
         </section>
