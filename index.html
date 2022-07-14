@@ -96,13 +96,10 @@
   <section id="abstract">
     <p>
       DIDs that target a distributed ledger face significant practical
-      challenges in
-      bootstrapping enough meaningful trusted data around identities to
-      incentivize
-      mass adoption. We propose using a new DID method in conjunction with
-      blockchain-based DIDs that allows them to bootstrap trust using a web
-      domain's
-      existing reputation.
+      challenges in bootstrapping enough meaningful trusted data around
+      identities to incentivize mass adoption. We propose using a new DID method
+      in conjunction with blockchain-based DIDs that allows them to bootstrap
+      trust using a web domain's existing reputation.
     </p>
   </section>
   <section id="sotd">
@@ -117,11 +114,9 @@
       </h2>
       <p>
         The Web DID method specification conforms to the requirements specified
-        in the
-        Decentralized Identifiers v1.0 Specification [[DID-CORE]]. For more
-        information about DIDs and DID method specifications, please also see
-        the
-        [[?DID-PRIMER]]
+        in the Decentralized Identifiers v1.0 Specification [[DID-CORE]]. For
+        more information about DIDs and DID method specifications, please also
+        see the [[?DID-PRIMER]]
       </p>
     </section>
     <section id="conformance">
@@ -209,10 +204,8 @@
       </h2>
       <p>
         The target system of the Web DID method is the web host that the domain
-        name
-        described by the DID resolves to when queried through the Domain Name
-        System
-        (DNS).
+        name described by the DID resolves to when queried through the Domain
+        Name System (DNS).
       </p>
 
     </section>
@@ -238,20 +231,15 @@
       <p>
         The method specific identifier is a fully qualified domain name that is
         secured by a TLS/SSL certificate with an optional path to the DID
-        document.
-        The formal rules describing valid domain name syntax are described in
-        [[RFC1035]], [[RFC1123]], and [[RFC2181]].
+        document. The formal rules describing valid domain name syntax are
+        described in [[RFC1035]], [[RFC1123]], and [[RFC2181]].
       </p>
       <p>
         The method specific identifier MUST match the common name used in the
-        SSL/TLS
-        certificate, and it MUST NOT include IP addresses. A port MAY be
-        included and
-        the colon MUST be percent encoded to prevent a conflict with paths.
-        Directories
-        and subdirectories MAY optionally be included, delimited by colons
-        rather than
-        slashes.
+        SSL/TLS certificate, and it MUST NOT include IP addresses. A port MAY be
+        included and the colon MUST be percent encoded to prevent a conflict
+        with paths. Directories and subdirectories MAY optionally be included,
+        delimited by colons rather than slashes.
       </p>
 
       <pre class="nohighlight">
@@ -275,10 +263,9 @@ did:web:example.com%3A3000
       <section>
         <p>
           There is intentionally no HTTP API specified for did:web method
-          operations leaving programmatic
-          registrations and management to be defined by each implementation, or
-          based on their own
-          requirements in their web environment.
+          operations leaving programmatic registrations and management to be
+          defined by each implementation, or based on their own requirements in
+          their web environment.
         </p>
         </p>
         <h3>
@@ -293,24 +280,20 @@ did:web:example.com%3A3000
           </li>
           <li>
             storing the location of a hosting service, the IP address at a DNS
-            lookup
-            service
+            lookup service
           </li>
           <li>
             creating the DID document JSON-LD file including a suitable keypair,
-            e.g.,
-            using the Koblitz Curve, and storing the <code>did.json</code> file
-            under the
-            well-known URL to represent the entire domain, or under the
-            specified path if
-            many DIDs will be resolved in this domain.
+            e.g. using the Koblitz Curve, and storing the <code>did.json</code>
+            file under the well-known URL to represent the entire domain, or
+            under the specified path if many DIDs will be resolved in this
+            domain.
           </li>
         </ol>
 
         <p>
           For example, for the domain name `w3c-ccg.github.io`, the `did.json`
-          will be
-          available under the following URL:
+          will be available under the following URL:
         </p>
 
         <pre class="example nohighlight" title="Creating the DID">
@@ -331,9 +314,8 @@ did:web:w3c-ccg.github.io:user:alice
 
         <p>
           If an optional port is specified on the domain, the port colon
-          splitting the
-          host and the port MUST be percent encoded to prevent collision with
-          the path.
+          splitting the host and the port MUST be percent encoded to prevent
+          collision with the path.
         </p>
 
         <pre class="example nohighlight"
@@ -349,23 +331,20 @@ did:web:example.com%3A3000:user:alice
         </h3>
         <p>
           The following steps MUST be executed to resolve the DID document from
-          a Web
-          DID:
+          a Web DID:
         </p>
 
         <ol>
           <li>
             Replace ":" with "/" in the method specific identifier to obtain the
-            fully
-            qualified domain name and optional path.
+            fully qualified domain name and optional path.
           </li>
           <li>
             If the domain contains a port percent decode the colon.
           </li>
           <li>
             Generate an HTTPS URL to the expected location of the DID document
-            by
-            prepending <code>https://</code>.
+            by prepending <code>https://</code>.
           </li>
           <li>
             If no path has been specified in the URL, append
@@ -376,18 +355,14 @@ did:web:example.com%3A3000:user:alice
           </li>
           <li>
             Perform an HTTP <code>GET</code> request to the URL using an agent
-            that can
-            successfully negotiate a secure HTTPS connection, which enforces the
-            security
-            requirements as described in <a
+            that can successfully negotiate a secure HTTPS connection, which
+            enforces the security requirements as described in <a
               href="#security-and-privacy-considerations"></a>.
           </li>
           <li>
             When performing the DNS resolution during the HTTP <code>GET</code>
-            request, the
-            client SHOULD utilize [[RFC8484]] in order to prevent tracking of
-            the identity
-            being resolved.
+            request, the client SHOULD utilize [[RFC8484]] in order to prevent
+            tracking of the identity being resolved.
           </li>
         </ol>
 
@@ -399,25 +374,21 @@ did:web:example.com%3A3000:user:alice
         </h3>
         <p>
           To update the DID document, the <code>did.json</code> has to be
-          updated.
-          Please note that the DID will remain the same, but the contents of the
-          DID
-          document could change, e.g., by including a new verification key or
-          adding
-          service endpoints.
+          updated. Please note that the DID will remain the same, but the
+          contents of the DID document could change, e.g., by including a new
+          verification key or adding service endpoints.
         </p>
 
         <p class="note">
           Managing updates to the DID Document using a version control system
-          such as git and
-          continious integration system such as GitHub Actions can provide
-          support for authenticationa and audit history.
+          such as git and continious integration system such as GitHub Actions
+          can provide support for authenticationa and audit history.
         </p>
 
         <p class="note" title="HTTP API">
           There is no HTTP API specified for the update process leaving
-          programmatic
-          registrations and management to be defined by each implementation.
+          programmatic registrations and management to be defined by each
+          implementation.
         </p>
       </section>
 
@@ -427,8 +398,8 @@ did:web:example.com%3A3000:user:alice
         </h3>
         <p>
           To delete the DID document, the <code>did.json</code> has to be
-          removed or has
-          to be no longer publicly available due to any other means.
+          removed or has to be no longer publicly available due to any other
+          means.
         </p>
       </section>
     </section>
@@ -444,16 +415,14 @@ did:web:example.com%3A3000:user:alice
         </h3>
         <p>
           This DID method does not specify any authentication or authorization
-          mechanism
-          for writing to, removing or creating the DID Document, leaving it up
-          to implementations
-          to protect did:web documents as with any other web resource.
+          mechanism for writing to, removing or creating the DID Document,
+          leaving it up to implementations to protect did:web documents as with
+          any other web resource.
         </p>
         <p>
           It is up to implementer to secure their web environments according to
-          industry best practices
-          for updating or otherwise managing web content based on the specific
-          needs of their threat environment.
+          industry best practices for updating or otherwise managing web content
+          based on the specific needs of their threat environment.
         </p>
       </section>
       <section>
@@ -465,29 +434,20 @@ did:web:example.com%3A3000:user:alice
         </h4>
         <p>
           DNS presents many of the attack vectors that enable active security
-          and privacy
-          attacks on the did:web method and it's important that implementors
-          address these
-          concerns via proper configuration of DNS. For example, without proper
-          security
-          of the DNS resolution via <a
+          and privacy attacks on the did:web method and it's important that
+          implementors address these concerns via proper configuration of DNS.
+          For example, without proper security of the DNS resolution via <a
             href="https://tools.ietf.org/html/rfc8484">DNS over HTTPS</a> it's
-          possible for
-          active attackers to intercept the result of the DNS resolution via a
-          Man in the
-          Middle attack which would point at a malicious server with the
-          incorrect DID
-          Document.
+          possible for active attackers to intercept the result of the DNS
+          resolution via a Man in the Middle attack which would point at a
+          malicious server with the incorrect DID Document.
         </p>
         <p>
           Additionally, implementors should be aware of issues presented by a
-          Spoofed DNS
-          records where the record returned by a malicious DNS Server is
-          inauthentic and
-          allows the record to be pointed at a malicious server which contains a
-          different
-          DID Document. To prevent this type of issue, usage of DNSSEC which is
-          defined in
+          Spoofed DNS records where the record returned by a malicious DNS
+          Server is inauthentic and allows the record to be pointed at a
+          malicious server which contains a different DID Document. To prevent
+          this type of issue, usage of DNSSEC which is
           <a href="https://tools.ietf.org/html/rfc4033">RFC4033</a>,
           <a href="https://tools.ietf.org/html/rfc4034">RFC4034</a>, and
           <a href="https://tools.ietf.org/html/rfc4035">RFC4035</a>.
@@ -498,23 +458,16 @@ did:web:example.com%3A3000:user:alice
         </h4>
         <p>
           Due to the nature of the did:web method relying upon a DNS in order to
-          resolve
-          the web server, all resolutions of a did:web identifier have the
-          potential to be
-          tracked by a DNS provider. Additionally, due to the DID Document being
-          stored on
-          a web server, each time the DID Document resource is retrieved, the
-          web server
-          has the ability to track the resolution of the DID Document. To
-          mitigate the
-          issue of the relying party being tracked when resolving the DID
-          Document the
+          resolve the web server, all resolutions of a did:web identifier have
+          the potential to be tracked by a DNS provider. Additionally, due to
+          the DID Document being stored on a web server, each time the DID
+          Document resource is retrieved, the web server has the ability to
+          track the resolution of the DID Document. To mitigate the issue of the
+          relying party being tracked when resolving the DID Document the
           relying party should look to either use a trusted universal resolver
-          service to
-          gain herd privacy, utilize a VPN service or perform a resolution over
-          the TOR
-          network. Another emerging solution that will be useful to address this
-          is <a
+          service to gain herd privacy, utilize a VPN service or perform a
+          resolution over the TOR network. Another emerging solution that will
+          be useful to address this is <a
             href="https://tools.ietf.org/html/draft-pauly-dprive-oblivious-doh-03">
             draft-pauly-dprive-oblivious-doh-03</a>
         </p>
@@ -528,17 +481,14 @@ did:web:example.com%3A3000:user:alice
         <p>
           Additional mechanisms such as <a
             href="https://tools.ietf.org/html/draft-sporny-hashlink">Hashlinks</a>
-          MAY be
-          utilized to aid in integrity protection and verification of the DID
-          document.
+          MAY be utilized to aid in integrity protection and verification of the
+          DID document.
           <br />
           Under such a scenario the hash of the DID document could be recorded
-          to a
-          trusted or distributed store and the retriever of the DID document
-          would
-          generate a hash of the DID document in their posession with the hash
-          retrieved
-          to ensure that no tampering with the DID document had occurred.
+          to a trusted or distributed store and the retriever of the DID
+          document would generate a hash of the DID document in their posession
+          with the hash retrieved to ensure that no tampering with the DID
+          document had occurred.
         </p>
 
       </section>
@@ -549,12 +499,9 @@ did:web:example.com%3A3000:user:alice
 
         <p>
           At least TLS 1.2 should be configured to use only strong ciphers
-          suites and to
-          use sufficiently large key sizes. As recommendations may be volatile
-          these days,
-          only the very latest recommendations should be used. However, as a
-          rule of
-          thumb, the following must be used:
+          suites and to use sufficiently large key sizes. As recommendations may
+          be volatile these days, only the very latest recommendations should be
+          used. However, as a rule of thumb, the following must be used:
         </p>
 
         <ul>
@@ -563,8 +510,7 @@ did:web:example.com%3A3000:user:alice
           </li>
           <li>
             ECDHE with one of the strong curves {X25519, brainpoolP384r1, NIST
-            P-384,
-            brainpoolP256r1, NIST P-256} shall be used as key exchange.
+            P-384, brainpoolP256r1, NIST P-256} shall be used as key exchange.
           </li>
           <li>
             AESGCM or ChaCha20 with 256 bit large keys shall be used for bulk
@@ -589,36 +535,29 @@ did:web:example.com%3A3000:user:alice
         </p>
         <ul>
           <li>
-            <code>ECDHE-ECDSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=ECDSA,
-Enc=AESGCM(256), Mac=AEAD</code>
+            <code>ECDHE-ECDSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=ECDSA, Enc=AESGCM(256), Mac=AEAD</code>
           </li>
           <li>
-            <code>ECDHE-RSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=RSA Enc=AESGCM(256),
-Mac=AEAD</code>
+            <code>ECDHE-RSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=RSA Enc=AESGCM(256), Mac=AEAD</code>
           </li>
           <li>
-            <code>ECDHE-ECDSA-CHACHA20-POLY1305, TLSv1.2, Kx=ECDH, Au=ECDSA,
-Enc=ChaCha20-Poly1305, Mac=AEAD</code>
+            <code>ECDHE-ECDSA-CHACHA20-POLY1305, TLSv1.2, Kx=ECDH, Au=ECDSA, Enc=ChaCha20-Poly1305, Mac=AEAD</code>
           </li>
           <li>
-            <code>ECDHE-RSA-CHACHA20-POLY1305, TLSv1.2, Kx=ECDH, Au=RSA,
-Enc=ChaCha20-Poly1305, Mac=AEAD</code>
+            <code>ECDHE-RSA-CHACHA20-POLY1305, TLSv1.2, Kx=ECDH, Au=RSA, Enc=ChaCha20-Poly1305, Mac=AEAD</code>
           </li>
           <li>
-            <code>ECDHE-RSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=RSA,
-Enc=AESGCM(256), Mac=AEAD</code>
+            <code>ECDHE-RSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=RSA, Enc=AESGCM(256), Mac=AEAD</code>
           </li>
           <li>
-            <code>ECDHE-ECDSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=ECDSA,
-Enc=AESGCM(256), Mac=AEAD</code>
+            <code>ECDHE-ECDSA-AES256-GCM-SHA384, TLSv1.2, Kx=ECDH, Au=ECDSA, Enc=AESGCM(256), Mac=AEAD</code>
           </li>
         </ul>
 
         <p>
           It is recommended to adhere to OWASP's Transport Layer Protection
-          Cheat Sheet
-          [[OWASP-TRANSPORT]] latest recommendations for hardening TLS
-          configurations.
+          Cheat Sheet [[OWASP-TRANSPORT]] latest recommendations for hardening
+          TLS configurations.
         </p>
 
         <p>
@@ -634,12 +573,10 @@ Enc=AESGCM(256), Mac=AEAD</code>
         </h3>
         <p>
           When optional paths to DID documents are used to resolve documents
-          rather than
-          bare domains, verification with signed data proves that the entity in
-          control
-          of the file indicated in the path has the private keys. It does not
-          prove that
-          the domain operator has the private keys.
+          rather than bare domains, verification with signed data proves that
+          the entity in control of the file indicated in the path has the
+          private keys. It does not prove that the domain operator has the
+          private keys.
         </p>
 
         <p>
@@ -654,13 +591,11 @@ did:web:example.com:u:bob
         </p>
         <pre class="nohighlight">
 https://example.com/u/bob/did.json
-          </pre>
+        </pre>
         <p>
           In this scenario, it is probable that example.com has given user Bob
-          control
-          over the DID in question, and proofs of control refer to Bob rather
-          than all
-          of example.com.
+          control over the DID in question, and proofs of control refer to Bob
+          rather than all of example.com.
         </p>
       </section>
     </section>
@@ -675,8 +610,7 @@ https://example.com/u/bob/did.json
         href="https://github.com/uport-project/https-did-resolver">uport-project/https-did-resolver</a>
       is intended to present a reference implementation of this DID method. Any
       other implementations should ensure that they pass the test suite
-      described in
-      <code>/src/__tests__</code> before claiming compatibility.
+      described in <code>/src/__tests__</code> before claiming compatibility.
     </p>
   </section>
 </body>
