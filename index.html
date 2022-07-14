@@ -149,12 +149,12 @@
     "https://www.w3.org/ns/did/v1",
     "https://w3id.org/security/suites/jws-2020/v1"
   ],
-  "id": "did:web:example.com#key-0",
+  "id": "did:web:example.com",
   "verificationMethod": [
     {
       "id": "did:web:example.com#key-0",
       "type": "JsonWebKey2020",
-      "controller": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      "controller": "did:web:example.com",
       "publicKeyJwk": {
         "kty": "OKP",
         "crv": "Ed25519",
@@ -162,9 +162,9 @@
       }
     },
     {
-      "id": "did:web:example.com#key-0",
+      "id": "did:web:example.com#key-1",
       "type": "JsonWebKey2020",
-      "controller": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      "controller": "did:web:example.com",
       "publicKeyJwk": {
         "kty": "OKP",
         "crv": "X25519",
@@ -172,9 +172,9 @@
       }
     },
     {
-      "id": "did:example:123#_TKzHv2jFIyvdTGF1Dsgwngfdg3SH6TpDv0Ta1aOEkw",
+      "id": "did:web:example.com#key-2",
       "type": "JsonWebKey2020",
-      "controller": "did:example:123",
+      "controller": "did:web:example.com",
       "publicKeyJwk": {
         "kty": "EC",
         "crv": "P-256",
@@ -186,6 +186,7 @@
   "authentication": [
     "did:web:example.com#key-0",
     "did:web:example.com#key-1"
+    "did:web:example.com#key-2"
   ]
 }
         </pre>
