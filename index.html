@@ -97,9 +97,8 @@
     <p>
       DIDs that target a distributed ledger face significant practical
       challenges in bootstrapping enough meaningful trusted data around
-      identities to incentivize mass adoption. We propose using a new DID method
-      in conjunction with blockchain-based DIDs that allows them to bootstrap
-      trust using a web domain's existing reputation.
+      identities to incentivize mass adoption. 
+      We propose a new DID method using a web domain's existing reputation.
     </p>
   </section>
   <section id="sotd">
@@ -127,23 +126,7 @@
         Examples
       </h2>
 
-      <pre class="example" title="Example did:web DID document using Secp256">
-{
-  "@context": "https://www.w3.org/ns/did/v1",
-  "id": "did:web:example.com",
-  "verificationMethod": [{
-     "id": "did:web:example.com#controller",
-     "type": "Secp256k1VerificationKey2018",
-     "controller": "did:web:example.com",
-     "ethereumAddress": "0xb9c5714089478a327f09197987f16f9e5d936e8a"
-  }],
-  "authentication": [
-     "did:web:example.com#controller"
-  ]
-}
-        </pre>
-
-      <pre class="example" title="Example did:web DID document using JWS2020">
+      <pre class="example" title="Example did:web DID document using JSON Web Keys">
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
@@ -194,6 +177,22 @@
   "keyAgreement": [
     "did:web:example.com#key-1", 
     "did:web:example.com#key-2"
+  ]
+}
+        </pre>
+
+        <pre class="example" title="Example did:web DID document using an ethereum address">
+{
+  "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/secp256k1recovery-2020/v2"],
+  "id": "did:web:example.com",
+  "verificationMethod": [{
+      "id": "did:web:example.com#address-0",
+      "type": "EcdsaSecp256k1RecoveryMethod2020",
+      "controller": "did:web:example.com",
+      "blockchainAccountId": "eip155:1:0x89a932207c485f85226d86f7cd486a89a24fcc12"
+  }],
+  "authentication": [
+      "did:web:example.com#address-0"
   ]
 }
         </pre>
@@ -619,6 +618,12 @@ https://example.com/u/bob/did.json
       is intended to present a reference implementation of this DID method. Any
       other implementations should ensure that they pass the test suite
       described in <code>/src/__tests__</code> before claiming compatibility.
+    </p>
+
+    <p>
+      The code at <a
+        href="https://github.com/transmute-industries/restricted-resolver">transmute-industries/restricted-resolver</a>
+      implements this specification.
     </p>
   </section>
 </body>
