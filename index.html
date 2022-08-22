@@ -122,83 +122,6 @@
     <section id="conformance">
       <!-- This section is filled automatically by ReSpec. -->
     </section>
-    <section>
-      <h2>
-        Examples
-      </h2>
-
-      <pre class="example" title="Example did:web DID document using Secp256">
-{
-  "@context": "https://www.w3.org/ns/did/v1",
-  "id": "did:web:example.com",
-  "verificationMethod": [{
-     "id": "did:web:example.com#controller",
-     "type": "Secp256k1VerificationKey2018",
-     "controller": "did:web:example.com",
-     "ethereumAddress": "0xb9c5714089478a327f09197987f16f9e5d936e8a"
-  }],
-  "authentication": [
-     "did:web:example.com#controller"
-  ]
-}
-        </pre>
-
-      <pre class="example" title="Example did:web DID document using JWS2020">
-{
-  "@context": [
-    "https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/suites/jws-2020/v1"
-  ],
-  "id": "did:web:example.com",
-  "verificationMethod": [
-    {
-      "id": "did:web:example.com#key-0",
-      "type": "JsonWebKey2020",
-      "controller": "did:web:example.com",
-      "publicKeyJwk": {
-        "kty": "OKP",
-        "crv": "Ed25519",
-        "x": "0-e2i2_Ua1S5HbTYnVB0lj2Z2ytXu2-tYmDFf8f5NjU"
-      }
-    },
-    {
-      "id": "did:web:example.com#key-1",
-      "type": "JsonWebKey2020",
-      "controller": "did:web:example.com",
-      "publicKeyJwk": {
-        "kty": "OKP",
-        "crv": "X25519",
-        "x": "9GXjPGGvmRq9F6Ng5dQQ_s31mfhxrcNZxRGONrmH30k"
-      }
-    },
-    {
-      "id": "did:web:example.com#key-2",
-      "type": "JsonWebKey2020",
-      "controller": "did:web:example.com",
-      "publicKeyJwk": {
-        "kty": "EC",
-        "crv": "P-256",
-        "x": "38M1FDts7Oea7urmseiugGW7tWc3mLpJh6rKe7xINZ8",
-        "y": "nDQW6XZ7b_u2Sy9slofYLlG03sOEoug3I0aAPQ0exs4"
-      }
-    },
-  ],
-  "authentication": [
-    "did:web:example.com#key-0",
-    "did:web:example.com#key-2"
-  ],
-  "assertionMethod": [
-    "did:web:example.com#key-0",
-    "did:web:example.com#key-2"
-  ],
-  "keyAgreement": [
-    "did:web:example.com#key-1", 
-    "did:web:example.com#key-2"
-  ]
-}
-        </pre>
-
-    </section>
   </section>
 
   <section>
@@ -291,31 +214,51 @@ did:web:example.com%3A3000
             lookup service
           </li>
           <li>
-            creating the DID document JSON-LD file including a suitable keypair,
-            e.g. using the Koblitz Curve, and storing the <code>did.json</code>
-            file under the well-known URL to represent the entire domain, or
-            under the specified path if many DIDs will be resolved in this
-            domain.
+            creating a DID Resolution Document with a <code>didDocument</code>
+            and a <code>didDocumentMetadata</code> property. 
+            The <a href="https://www.w3.org/TR/did-core/#dfn-did-documents">DID Document</a>
+            and <a href="https://www.w3.org/TR/did-core/#did-document-metadata">DID Document Metadata</a> 
+            data models are defined in the <a href="https://www.w3.org/TR/did-core/">DID-Core</a> specification.
+          </li>
+          <li>
+            creating one or more <a href="https://www.w3.org/TR/did-core/#representations">representations</a> 
+            for the DID Resolution Document
+          </li>
+          <li>
+            storing the chosen representations of the DID Resolution Document in the <code>did.representation</code> 
+            file under the well-known URL to represent the entire domain, or under the specified path if many DIDs 
+            will be resolved in this domain.
           </li>
         </ol>
 
         <p>
-          For example, for the domain name `w3c-ccg.github.io`, the `did.json`
-          will be available under the following URL:
+          For example, the domain name <code>w3c-ccg.github.io</code> under a
+          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options's</a> <code>accept</code> 
+          property of <code>application/did+json</code> resolves the DID Resolution Document from the following URL:
         </p>
 
-        <pre class="example nohighlight" title="Creating the DID">
+        <pre class="example nohighlight" title="Creating the Root JSON DID">
 did:web:w3c-ccg.github.io
  -> https://w3c-ccg.github.io/.well-known/did.json
           </pre>
+
+        <p>
+          If the 
+          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options's</a> <code>accept</code> 
+          property is a JSON-LD (<code>application/did+ld+json</code>), it resolves the DID Resolution Document from the following URL:
+        </p>
+
+        <pre class="example nohighlight" title="Creating the Root JSON-LD DID">
+          did:web:w3c-ccg.github.io
+           -> https://w3c-ccg.github.io/.well-known/did.jsonld
+                    </pre>
 
         <p>
           If an optional path is specified rather the bare domain, the
           <code>did.json</code> will be available under the specified path:
         </p>
 
-        <pre class="example nohighlight"
-          title="Creating the DID with optional path">
+        <pre class="example nohighlight" title="Creating the JSON DID with optional path">
 did:web:w3c-ccg.github.io:user:alice
  -> https://w3c-ccg.github.io/user/alice/did.json
           </pre>
@@ -326,11 +269,125 @@ did:web:w3c-ccg.github.io:user:alice
           collision with the path.
         </p>
 
-        <pre class="example nohighlight"
-          title="Creating the DID with optional path and port">
+        <pre class="example nohighlight" title="Creating the JSON DID with optional path and port">
 did:web:example.com%3A3000:user:alice
  -> https://example.com:3000/user/alice/did.json
           </pre>
+      </section>
+
+      <section>
+        <h2>
+          Examples of DID Resolution Documents as JSON-LD files
+        </h2>
+  
+        <pre class="example" title="Example did:web DID Resolution Document using Secp256">
+{
+  "@context": "https://w3id.org/did-resolution/v1",
+  "didDocument": {  
+    "@context": "https://www.w3.org/ns/did/v1",
+    "id": "did:web:example.com",
+    "verificationMethod": [{
+       "id": "did:web:example.com#controller",
+       "type": "Secp256k1VerificationKey2018",
+       "controller": "did:web:example.com",
+       "ethereumAddress": "0xb9c5714089478a327f09197987f16f9e5d936e8a"
+    }],
+    "authentication": [
+       "did:web:example.com#controller"
+    ]
+  }
+}
+          </pre>
+  
+        <pre class="example" title="Example did:web DID Resolution Document using JWS2020">
+{
+  "@context": "https://w3id.org/did-resolution/v1",
+  "didDocument": {  
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/security/suites/jws-2020/v1"
+    ],
+    "id": "did:web:example.com",
+    "verificationMethod": [
+      {
+        "id": "did:web:example.com#key-0",
+        "type": "JsonWebKey2020",
+        "controller": "did:web:example.com",
+        "publicKeyJwk": {
+          "kty": "OKP",
+          "crv": "Ed25519",
+          "x": "0-e2i2_Ua1S5HbTYnVB0lj2Z2ytXu2-tYmDFf8f5NjU"
+        }
+      },
+      {
+        "id": "did:web:example.com#key-1",
+        "type": "JsonWebKey2020",
+        "controller": "did:web:example.com",
+        "publicKeyJwk": {
+          "kty": "OKP",
+          "crv": "X25519",
+          "x": "9GXjPGGvmRq9F6Ng5dQQ_s31mfhxrcNZxRGONrmH30k"
+        }
+      },
+      {
+        "id": "did:web:example.com#key-2",
+        "type": "JsonWebKey2020",
+        "controller": "did:web:example.com",
+        "publicKeyJwk": {
+          "kty": "EC",
+          "crv": "P-256",
+          "x": "38M1FDts7Oea7urmseiugGW7tWc3mLpJh6rKe7xINZ8",
+          "y": "nDQW6XZ7b_u2Sy9slofYLlG03sOEoug3I0aAPQ0exs4"
+        }
+      },
+    ],
+    "authentication": [
+      "did:web:example.com#key-0",
+      "did:web:example.com#key-2"
+    ],
+    "assertionMethod": [
+      "did:web:example.com#key-0",
+      "did:web:example.com#key-2"
+    ],
+    "keyAgreement": [
+      "did:web:example.com#key-1", 
+      "did:web:example.com#key-2"
+    ]
+  }
+}
+          </pre>
+  
+          <pre class="example" title="Example did:web JSON-LD DID Resolution Document with a cryptographic signature">
+{
+  "@context": "https://w3id.org/did-resolution/v1",
+  "didDocument": {
+    "@context": "https://www.w3.org/ns/did/v1",
+    "id": "did:web:example:com",
+    "authentication": [{
+      "id": "did:web:example:com#keys-1",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:web:example:com",
+      "publicKeyBase58": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV"
+    }],
+    "service": [{
+      "id": "did:web:example:com#vcs",
+      "type": "VerifiableCredentialService",
+      "serviceEndpoint": "https://example.com/vc/"
+    }],
+  },
+  "didDocumentMetadata": {
+    "created": "2019-03-23T06:35:22Z",
+    "updated": "2023-08-10T13:40:06Z",
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2022-08-21T12:54:33Z",
+      "verificationMethod": "did:web:example.com:trustedSigner#WEB",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "z3e7VcjAVz7RVb7uuH7NQzDuF9AXK3vfH65xnSJSRiLK3vTPUoCDgcE4JC1UfZhbD1wgFsWxQwdWEtrRqhbnqvyYs"
+    }
+  }
+}
+        </pre>
       </section>
 
       <section>
@@ -351,7 +408,7 @@ did:web:example.com%3A3000:user:alice
             If the domain contains a port percent decode the colon.
           </li>
           <li>
-            Generate an HTTPS URL to the expected location of the DID document
+            Generate an HTTPS URL to the expected location of the DID Resolution Document
             by prepending <code>https://</code>.
           </li>
           <li>
@@ -359,7 +416,14 @@ did:web:example.com%3A3000:user:alice
             <code>/.well-known</code>.
           </li>
           <li>
-            Append <code>/did.json</code> to complete the URL.
+            Map the DID Document Option's accept property to a file extension:
+            <ol>
+              <li><code>application/did+json</code> -> <code>json</code></li>
+              <li><code>application/did+jsonld</code> -> <code></code>jsonld</code></li>
+            </ol> 
+          </li>
+          <li>
+            Append <code>/did.representation</code> to complete the URL.
           </li>
           <li>
             Perform an HTTP <code>GET</code> request to the URL using an agent
@@ -381,9 +445,9 @@ did:web:example.com%3A3000:user:alice
           Update
         </h3>
         <p>
-          To update the DID document, the <code>did.json</code> has to be
+          To update the DID Resolution Document, the <code>did.representation</code> file has to be
           updated. Please note that the DID will remain the same, but the
-          contents of the DID document could change, e.g., by including a new
+          contents of the DID document and DID Document Metadata could change, e.g., by including a new
           verification key or adding service endpoints.
         </p>
 
@@ -405,7 +469,7 @@ did:web:example.com%3A3000:user:alice
           Deactivate (Revoke)
         </h3>
         <p>
-          To delete the DID document, the <code>did.json</code> has to be
+          To delete the DID document, the <code>did.representation</code> file has to be
           removed or has to be no longer publicly available due to any other
           means.
         </p>
@@ -423,8 +487,8 @@ did:web:example.com%3A3000:user:alice
         </h3>
         <p>
           This DID method does not specify any authentication or authorization
-          mechanism for writing to, removing or creating the DID Document,
-          leaving it up to implementations to protect did:web documents as with
+          mechanism for writing to, removing or creating the DID Resolution Document,
+          leaving it up to implementations to protect <code>did:web</code> documents as with
           any other web resource.
         </p>
         <p>
@@ -448,14 +512,14 @@ did:web:example.com%3A3000:user:alice
             href="https://tools.ietf.org/html/rfc8484">DNS over HTTPS</a> it's
           possible for active attackers to intercept the result of the DNS
           resolution via a Man in the Middle attack which would point at a
-          malicious server with the incorrect DID Document.
+          malicious server with the incorrect DID Resolution Document.
         </p>
         <p>
           Additionally, implementors should be aware of issues presented by a
           Spoofed DNS records where the record returned by a malicious DNS
           Server is inauthentic and allows the record to be pointed at a
-          malicious server which contains a different DID Document. To prevent
-          this type of issue, usage of DNSSEC which is
+          malicious server which contains a different DID Resolution Document. 
+          To prevent this type of issue, usage of DNSSEC which is
           <a href="https://tools.ietf.org/html/rfc4033">RFC4033</a>,
           <a href="https://tools.ietf.org/html/rfc4034">RFC4034</a>, and
           <a href="https://tools.ietf.org/html/rfc4035">RFC4035</a>.
@@ -468,10 +532,10 @@ did:web:example.com%3A3000:user:alice
           Due to the nature of the did:web method relying upon a DNS in order to
           resolve the web server, all resolutions of a did:web identifier have
           the potential to be tracked by a DNS provider. Additionally, due to
-          the DID Document being stored on a web server, each time the DID
+          the DID Resolution Document being stored on a web server, each time the DID
           Document resource is retrieved, the web server has the ability to
-          track the resolution of the DID Document. To mitigate the issue of the
-          relying party being tracked when resolving the DID Document the
+          track the resolution of the DID Resolution Document. To mitigate the issue of the
+          relying party being tracked when resolving the DID Resolution Document the
           relying party should look to either use a trusted universal resolver
           service to gain herd privacy, utilize a VPN service or perform a
           resolution over the TOR network. Another emerging solution that will
@@ -489,11 +553,11 @@ did:web:example.com%3A3000:user:alice
         <p>
           Additional mechanisms such as <a
             href="https://tools.ietf.org/html/draft-sporny-hashlink">Hashlinks</a>
-          MAY be utilized to aid in integrity protection and verification of the
-          DID document.
+            and cryptographic signatures MAY be utilized to aid in integrity protection 
+            and verification of the DID document.
           <br />
-          Under such a scenario the hash of the DID document could be recorded
-          to a trusted or distributed store and the retriever of the DID
+          Under such a scenario the hash of the DID document or a trust anchor of the signature 
+          could be recorded to a trusted or distributed store and the retriever of the DID
           document would generate a hash of the DID document in their posession
           with the hash retrieved to ensure that no tampering with the DID
           document had occurred.
@@ -595,7 +659,7 @@ did:web:example.com%3A3000:user:alice
 did:web:example.com:u:bob
           </pre>
         <p>
-          resolves to the DID document at:
+          resolves to the DID Resolution Document at:
         </p>
         <pre class="nohighlight">
 https://example.com/u/bob/did.json
