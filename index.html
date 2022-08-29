@@ -229,6 +229,14 @@ did:web:example.com%3A3000
             file under the well-known URL to represent the entire domain, or under the specified path if many DIDs 
             will be resolved in this domain.
           </li>
+          <li>
+            setup the HTTP server content negotiation modules to reply with different representations based on 
+            the accept header. As an example: 
+            <ol>
+              <li><code>accept: application/did+json</code> -> <code>did.json</code></li>
+              <li><code>accept: application/did+jsonld</code> -> <code>did.jsonld</code></li>
+            </ol> 
+          </li>
         </ol>
 
         <p>
@@ -239,6 +247,7 @@ did:web:example.com%3A3000
 
         <pre class="example nohighlight" title="Creating the Root JSON DID">
 did:web:w3c-ccg.github.io
+accept: application/did+json
  -> https://w3c-ccg.github.io/.well-known/did.json
           </pre>
 
@@ -250,6 +259,7 @@ did:web:w3c-ccg.github.io
 
         <pre class="example nohighlight" title="Creating the Root JSON-LD DID">
           did:web:w3c-ccg.github.io
+          accept: application/did+ld+json
            -> https://w3c-ccg.github.io/.well-known/did.jsonld
                     </pre>
 
@@ -260,6 +270,7 @@ did:web:w3c-ccg.github.io
 
         <pre class="example nohighlight" title="Creating the JSON DID with optional path">
 did:web:w3c-ccg.github.io:user:alice
+accept: application/did+json
  -> https://w3c-ccg.github.io/user/alice/did.json
           </pre>
 
@@ -271,6 +282,7 @@ did:web:w3c-ccg.github.io:user:alice
 
         <pre class="example nohighlight" title="Creating the JSON DID with optional path and port">
 did:web:example.com%3A3000:user:alice
+accept: application/did+json
  -> https://example.com:3000/user/alice/did.json
           </pre>
       </section>
@@ -416,17 +428,14 @@ did:web:example.com%3A3000:user:alice
             <code>/.well-known</code>.
           </li>
           <li>
-            Map the DID Document Option's accept property to a file extension:
-            <ol>
-              <li><code>application/did+json</code> -> <code>json</code></li>
-              <li><code>application/did+jsonld</code> -> <code>jsonld</code></li>
-            </ol> 
+            Append <code>/did</code> to complete the URL
           </li>
           <li>
-            Append <code>/did.representation</code> to complete the URL.
+            Map the <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Option's</a> accept 
+            property to the appropriate request header fields of the HTTP Content Negotiation:
           </li>
           <li>
-            Perform an HTTP <code>GET</code> request to the URL using an agent
+            Perform an HTTP <code>GET</code> request to the URL with the appropriate headers using an agent
             that can successfully negotiate a secure HTTPS connection, which
             enforces the security requirements as described in <a
               href="#security-and-privacy-considerations"></a>.
@@ -657,6 +666,7 @@ did:web:example.com%3A3000:user:alice
 
         <pre class="nohighlight">
 did:web:example.com:u:bob
+accept: application/did+json
           </pre>
         <p>
           resolves to the DID Resolution Document at:
