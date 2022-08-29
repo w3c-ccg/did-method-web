@@ -435,11 +435,12 @@ accept: application/did+json
             Append <code>/did</code> to complete the URL
           </li>
           <li>
-            Map the <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Option's</a> accept 
-            property to the appropriate request header fields of the HTTP Content Negotiation
+            Map the <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Option's</a> to 
+            the appropriate request header fields of the HTTP Content Negotiation as described in 
+            the <a href="https://w3c-ccg.github.io/did-resolution/#bindings-https">DID Resolution, HTTP(S) Binding</a>
           </li>
           <li>
-            Perform an HTTP <code>GET</code> request to the URL with the appropriate headers using an agent
+            Perform an HTTP <code>GET</code> request to the URL using an agent
             that can successfully negotiate a secure HTTPS connection, which
             enforces the security requirements as described in <a
               href="#security-and-privacy-considerations"></a>.
