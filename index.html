@@ -214,7 +214,7 @@ did:web:example.com%3A3000
             lookup service
           </li>
           <li>
-            creating a <a href="https://www.w3.org/TR/did-core/#did-resolution">DID Resolution Document</a> 
+            creating a <a href="https://www.w3.org/TR/did-core/#did-resolution">DID Resolution Result</a> 
             with a required <code>didDocument</code> and an optional <code>didDocumentMetadata</code> property. 
             The <a href="https://www.w3.org/TR/did-core/#dfn-did-documents">DID Document</a>
             and <a href="https://www.w3.org/TR/did-core/#did-document-metadata">DID Document Metadata</a> 
@@ -222,10 +222,10 @@ did:web:example.com%3A3000
           </li>
           <li>
             creating one or more <a href="https://www.w3.org/TR/did-core/#representations">representations</a> 
-            for the DID Resolution Document
+            for the DID Resolution Result
           </li>
           <li>
-            storing the chosen representations of the DID Resolution Document as <code>did.representation</code> 
+            storing the chosen representations of the DID Resolution Result as <code>did.representation</code> 
             files under the well-known URL to represent the entire domain, or under the specified path if many DIDs 
             will be resolved in this domain.
           </li>
@@ -242,7 +242,7 @@ did:web:example.com%3A3000
         <p>
           For example, the domain name <code>w3c-ccg.github.io</code> under a
           <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options's</a> <code>accept</code> 
-          property of <code>application/did+json</code> resolves the DID Resolution Document from the following URL:
+          property of <code>application/did+json</code> resolves the DID Resolution Result from the following URL:
         </p>
 
         <pre class="example nohighlight" title="Creating the Root JSON DID">
@@ -254,7 +254,7 @@ accept: application/did+json
         <p>
           If the 
           <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options'</a> <code>accept</code> 
-          property is a JSON-LD (<code>application/did+ld+json</code>), it resolves the DID Resolution Document from the following URL:
+          property is a JSON-LD (<code>application/did+ld+json</code>), it resolves the DID Resolution Result from the following URL:
         </p>
 
         <pre class="example nohighlight" title="Creating the Root JSON-LD DID">
@@ -289,10 +289,10 @@ accept: application/did+json
 
       <section>
         <h2>
-          Examples of DID Resolution Documents as JSON-LD files
+          Examples of DID Resolution Results as JSON-LD files
         </h2>
   
-        <pre class="example" title="Example did:web DID Resolution Document using Secp256">
+        <pre class="example" title="Example did:web DID Resolution Result using Secp256">
 {
   "@context": "https://w3id.org/did-resolution/v1",
   "didDocument": {  
@@ -311,7 +311,7 @@ accept: application/did+json
 }
           </pre>
   
-        <pre class="example" title="Example did:web DID Resolution Document using JWS2020">
+        <pre class="example" title="Example did:web DID Resolution Result using JWS2020">
 {
   "@context": "https://w3id.org/did-resolution/v1",
   "didDocument": {  
@@ -369,7 +369,7 @@ accept: application/did+json
 }
           </pre>
   
-          <pre class="example" title="Example did:web JSON-LD DID Resolution Document with a cryptographic signature">
+          <pre class="example" title="Example did:web JSON-LD DID Resolution Result with a cryptographic signature">
 {
   "@context": "https://w3id.org/did-resolution/v1",
   "didDocument": {
@@ -424,7 +424,7 @@ accept: application/did+json
             If the domain contains a port, percent decode the colon.
           </li>
           <li>
-            Generate an HTTPS URL to the expected location of the DID Resolution Document
+            Generate an HTTPS URL to the expected location of the DID Resolution Result
             by prepending <code>https://</code>.
           </li>
           <li>
@@ -459,7 +459,7 @@ accept: application/did+json
           Update
         </h3>
         <p>
-          To update the DID Resolution Document, the <code>did.representation</code> file has to be
+          To update the DID Resolution Result, the <code>did.representation</code> file has to be
           updated. Please note that the DID will remain the same, but the
           contents of the DID document and DID Document Metadata could change, e.g., by including a new
           verification key or adding service endpoints.
@@ -501,7 +501,7 @@ accept: application/did+json
         </h3>
         <p>
           This DID method does not specify any authentication or authorization
-          mechanism for writing to, removing or creating the DID Resolution Document,
+          mechanism for writing to, removing or creating the DID Resolution Result,
           leaving it up to implementations to protect <code>did:web</code> documents as with
           any other web resource.
         </p>
@@ -526,13 +526,13 @@ accept: application/did+json
             href="https://tools.ietf.org/html/rfc8484">DNS over HTTPS</a> it's
           possible for active attackers to intercept the result of the DNS
           resolution via a Man in the Middle attack which would point at a
-          malicious server with the incorrect DID Resolution Document.
+          malicious server with the incorrect DID Resolution Result.
         </p>
         <p>
           Additionally, implementors should be aware of issues presented by a
           Spoofed DNS records where the record returned by a malicious DNS
           Server is inauthentic and allows the record to be pointed at a
-          malicious server which contains a different DID Resolution Document. 
+          malicious server which contains a different DID Resolution Result. 
           To prevent this type of issue, usage of DNSSEC which is
           <a href="https://tools.ietf.org/html/rfc4033">RFC4033</a>,
           <a href="https://tools.ietf.org/html/rfc4034">RFC4034</a>, and
@@ -546,10 +546,10 @@ accept: application/did+json
           Due to the nature of the did:web method relying upon a DNS in order to
           resolve the web server, all resolutions of a did:web identifier have
           the potential to be tracked by a DNS provider. Additionally, due to
-          the DID Resolution Document being stored on a web server, each time the DID
+          the DID Resolution Result being stored on a web server, each time the DID
           Document resource is retrieved, the web server has the ability to
-          track the resolution of the DID Resolution Document. To mitigate the issue of the
-          relying party being tracked when resolving the DID Resolution Document the
+          track the resolution of the DID Resolution Result. To mitigate the issue of the
+          relying party being tracked when resolving the DID Resolution Result the
           relying party should look to either use a trusted universal resolver
           service to gain herd privacy, utilize a VPN service or perform a
           resolution over the TOR network. Another emerging solution that will
@@ -674,7 +674,7 @@ did:web:example.com:u:bob
 accept: application/did+json
           </pre>
         <p>
-          resolves to the DID Resolution Document at:
+          resolves to the DID Resolution Result at:
         </p>
         <pre class="nohighlight">
 https://example.com/u/bob/did.json
