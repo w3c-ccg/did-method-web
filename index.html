@@ -193,7 +193,7 @@ did:web:example.com%3A3000
       </h2>
       <section>
         <p>
-          There is intentionally no HTTP API specified for did:web method
+          There is intentionally no HTTP API specified for <code>did:web</code> method
           operations leaving programmatic registrations and management to be
           defined by each implementation, or based on their own requirements in
           their web environment.
@@ -225,13 +225,13 @@ did:web:example.com%3A3000
             for the DID Resolution Document
           </li>
           <li>
-            storing the chosen representations of the DID Resolution Document in the <code>did.representation</code> 
-            file under the well-known URL to represent the entire domain, or under the specified path if many DIDs 
+            storing the chosen representations of the DID Resolution Document as <code>did.representation</code> 
+            files under the well-known URL to represent the entire domain, or under the specified path if many DIDs 
             will be resolved in this domain.
           </li>
           <li>
-            setup the HTTP server content negotiation modules to reply with different representations based on 
-            the accept header. As an example: 
+            setting up the HTTP Server Content Negotiation modules to reply with different representations based on 
+            the <code>accept</code> header. As an example: 
             <ol>
               <li><code>accept: application/did+json</code> -> <code>did.json</code></li>
               <li><code>accept: application/did+ld+json</code> -> <code>did.jsonld</code></li>
@@ -253,7 +253,7 @@ accept: application/did+json
 
         <p>
           If the 
-          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options's</a> <code>accept</code> 
+          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options'</a> <code>accept</code> 
           property is a JSON-LD (<code>application/did+ld+json</code>), it resolves the DID Resolution Document from the following URL:
         </p>
 
@@ -265,7 +265,7 @@ accept: application/did+json
 
         <p>
           If an optional path is specified rather the bare domain, the
-          <code>did.json</code> will be available under the specified path:
+          <code>did</code> file will be available under the specified path:
         </p>
 
         <pre class="example nohighlight" title="Creating the JSON DID with optional path">
@@ -417,7 +417,7 @@ accept: application/did+json
             fully qualified domain name and optional path.
           </li>
           <li>
-            If the domain contains a port percent decode the colon.
+            If the domain contains a port, percent decode the colon.
           </li>
           <li>
             Generate an HTTPS URL to the expected location of the DID Resolution Document
