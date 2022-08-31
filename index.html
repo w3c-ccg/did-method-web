@@ -238,53 +238,6 @@ did:web:example.com%3A3000
             </ol> 
           </li>
         </ol>
-
-        <p>
-          For example, the domain name <code>w3c-ccg.github.io</code> under a
-          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options's</a> <code>accept</code> 
-          property of <code>application/did+json</code> resolves the DID Resolution Result from the following URL:
-        </p>
-
-        <pre class="example nohighlight" title="Creating the Root JSON DID">
-did:web:w3c-ccg.github.io
-accept: application/did+json
- -> https://w3c-ccg.github.io/.well-known/did.json
-          </pre>
-
-        <p>
-          If the 
-          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options'</a> <code>accept</code> 
-          property is a JSON-LD (<code>application/did+ld+json</code>), it resolves the DID Resolution Result from the following URL:
-        </p>
-
-        <pre class="example nohighlight" title="Creating the Root JSON-LD DID">
-          did:web:w3c-ccg.github.io
-          accept: application/did+ld+json
-           -> https://w3c-ccg.github.io/.well-known/did.jsonld
-                    </pre>
-
-        <p>
-          If an optional path is specified rather the bare domain, the
-          <code>did</code> file will be available under the specified path:
-        </p>
-
-        <pre class="example nohighlight" title="Creating the JSON DID with optional path">
-did:web:w3c-ccg.github.io:user:alice
-accept: application/did+json
- -> https://w3c-ccg.github.io/user/alice/did.json
-          </pre>
-
-        <p>
-          If an optional port is specified on the domain, the port colon
-          splitting the host and the port MUST be percent encoded to prevent
-          collision with the path.
-        </p>
-
-        <pre class="example nohighlight" title="Creating the JSON DID with optional path and port">
-did:web:example.com%3A3000:user:alice
-accept: application/did+json
- -> https://example.com:3000/user/alice/did.json
-          </pre>
       </section>
 
       <section>
@@ -451,8 +404,65 @@ accept: application/did+json
             tracking of the identity being resolved.
           </li>
         </ol>
-
       </section>
+      <section>
+        <h2>
+          DID:WEB URL Dereferencing examples
+        </h2>
+
+        <p>
+          For example, the domain name <code>w3c-ccg.github.io</code> under a
+          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options's</a> <code>accept</code> 
+          property of <code>application/did+json</code> resolves the DID Resolution Result from the following URL:
+        </p>
+
+        <pre class="example nohighlight" title="Creating the Root JSON DID">
+# did:web:w3c-ccg.github.io
+
+GET https://w3c-ccg.github.io/.well-known/did
+Accept: application/did+json
+          </pre>
+
+        <p>
+          If the 
+          <a href="https://www.w3.org/TR/did-core/#did-resolution-options">DID Resolution Options'</a> <code>accept</code> 
+          property is a JSON-LD (<code>application/did+ld+json</code>), it resolves the DID Resolution Result from the following URL:
+        </p>
+
+        <pre class="example nohighlight" title="Creating the Root JSON-LD DID">
+# did:web:w3c-ccg.github.io
+
+GET https://w3c-ccg.github.io/.well-known/did
+Accept: application/did+ld+json
+        </pre>
+
+        <p>
+          If an optional path is specified rather the bare domain, the
+          <code>did</code> file will be available under the specified path:
+        </p>
+
+        <pre class="example nohighlight" title="Creating the JSON DID with optional path">
+# did:web:w3c-ccg.github.io:user:alice
+
+GET https://w3c-ccg.github.io/user/alice/did
+Accept: application/did+json
+        </pre>
+
+        <p>
+          If an optional port is specified on the domain, the port colon
+          splitting the host and the port MUST be percent encoded to prevent
+          collision with the path.
+        </p>
+
+        <pre class="example nohighlight" title="Creating the JSON DID with optional path and port">
+# did:web:example.com%3A3000:user:alice
+
+GET https://example.com:3000/user/alice/did
+Accept: application/did+json
+          </pre>
+      </section>
+
+
 
       <section>
         <h3>
