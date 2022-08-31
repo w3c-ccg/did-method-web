@@ -373,7 +373,10 @@ accept: application/did+json
 {
   "@context": "https://w3id.org/did-resolution/v1",
   "didDocument": {
-    "@context": "https://www.w3.org/ns/did/v1",
+    "@context": [ 
+      "https://www.w3.org/ns/did/v1", 
+      "https://w3id.org/security/suites/ed25519-2020/v1"
+    ],
     "id": "did:web:example:com",
     "authentication": [{
       "id": "did:web:example:com#keys-1",
@@ -386,14 +389,6 @@ accept: application/did+json
       "type": "VerifiableCredentialService",
       "serviceEndpoint": "https://example.com/vc/"
     }],
-  },
-  "didDocumentMetadata": {
-    "@context": [
-      "https://w3id.org/did-resolution/v1"
-      "https://w3id.org/security/suites/ed25519-2020/v1"
-    ],
-    "created": "2019-03-23T06:35:22Z",
-    "updated": "2023-08-10T13:40:06Z",
     "proof": {
       "type": "Ed25519Signature2020",
       "created": "2022-08-21T12:54:33Z",
@@ -401,6 +396,11 @@ accept: application/did+json
       "proofPurpose": "assertionMethod",
       "proofValue": "z3e7VcjAVz7RVb7uuH7NQzDuF9AXK3vfH65xnSJSRiLK3vTPUoCDgcE4JC1UfZhbD1wgFsWxQwdWEtrRqhbnqvyYs"
     }
+  },
+  "didDocumentMetadata": {
+    "@context": "https://w3id.org/did-resolution/v1",
+    "created": "2019-03-23T06:35:22Z",
+    "updated": "2023-08-10T13:40:06Z"
   }
 }
         </pre>
