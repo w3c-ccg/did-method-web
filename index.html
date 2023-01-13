@@ -555,16 +555,43 @@ did:web:example.com%3A3000:user:alice
         </h3>
 
         <p>
-          At least TLS 1.2 should be configured to use only strong ciphers
-          suites and to use sufficiently large key sizes. As recommendations may
-          be volatile these days, only the very latest recommendations should be
-          used. However, as a rule of thumb, the following must be used:
+          Guidance from <a
+            href="https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final">
+            NIST SP 800-52 Rev. 2
+          </a> or superceding, MUST be followed for delivery of a did web
+          document.
+        </p>
+
+        <p>
+          It is additionally recommended to adhere to OWASP's Transport Layer
+          Protection Cheat Sheet [[OWASP-TRANSPORT]] latest recommendations for
+          hardening TLS configurations.
+        </p>
+
+        <p>
+          Ephemeral keys MUST be used.
+        </p>
+
+        <p>
+          At least SHA256 MUST be used in TLS configuration, but SHA384,
+          POLY1305 or stronger is recommended, depending on the needs of your
+          operating environment.
+        </p>
+
+        <p>
+          Delete action MAY be performed by domain name registrars or DNS lookup
+          services.
+        </p>
+
+        <p>
+          At time of this writing, at least TLS 1.2 should be configured to use
+          only strong ciphers suites and to use sufficiently large key sizes.
+          As recommendations may be volatile these days, only the very latest
+          recommendations should be used. However, as a rule of thumb,
+          the following set of suites is a reasonable starting place:
         </p>
 
         <ul>
-          <li>
-            Ephemeral keys are to be used.
-          </li>
           <li>
             ECDHE with one of the strong curves {X25519, brainpoolP384r1, NIST
             P-384, brainpoolP256r1, NIST P-256} shall be used as key exchange.
@@ -580,10 +607,6 @@ did:web:example.com%3A3000:user:alice
           <li>
             Authenticated Encryption with Associated Data (AEAD) shall be used
             as Mac.
-          </li>
-          <li>
-            At least SHA256 shall be used, but SHA384 or POLY1305 are
-            recommended.
           </li>
         </ul>
 
@@ -611,16 +634,7 @@ did:web:example.com%3A3000:user:alice
           </li>
         </ul>
 
-        <p>
-          It is recommended to adhere to OWASP's Transport Layer Protection
-          Cheat Sheet [[OWASP-TRANSPORT]] latest recommendations for hardening
-          TLS configurations.
-        </p>
 
-        <p>
-          Delete action can be performed by domain name registrars or DNS lookup
-          services.
-        </p>
 
       </section>
 
