@@ -271,22 +271,22 @@ did:web:example.com%3A3000
       </h2>
       <p>
         Due to the way most web servers present content, it is likely that a
-        particular did:web document will be served with a media type of
-      <pre>application/json</pre>. If a document is retrieved and it is named
-      <pre>did.json</pre> a few processing rules should apply:
+        particular `did:web` document will be served with a media type of
+      `application/json`. If a document is retrieved and it is named
+      `did.json`, a few processing rules should apply:
       <ul>
         <li>
           If an
-          <pre>@context</pre> is present at the root of the json document,
+          `@context` is present at the root of the JSON document,
           the document should be processed according to the JSON-LD rules.
-          If this is not possible, or if the document failes processing, the
-          document should be rejected from consideration as a did:web doc.
+          If this is not possible, or if the document fails processing, the
+          document should be rejected from consideration as a `did:web` doc.
         </li>
         <li>
           If an
-          <pre>@context</pre> is present at the root of the json document,
-          and is passes JSON-LD processing, and it contains the context
-          <pre>https://www.w3.org/ns/did/v1</pre>, it may be further processed
+          `@context` is present at the root of the JSON document,
+          and it passes JSON-LD processing, and it contains the context
+          `https://www.w3.org/ns/did/v1`, it may be further processed
           as a
           DID document as specified by section
           <a href="https://www.w3.org/TR/did-core/#consumption-0">6.3.2</a> of
@@ -295,7 +295,7 @@ did:web:example.com%3A3000
         </li>
         <li>
           If no
-          <pre>@context</pre> is present, it should be processed via normal
+          `@context` is present, it should be processed via normal
           JSON rules for DID processing as specified in section
           <a href="https://www.w3.org/TR/did-core/#consumption">6.2.2</a> of the
           [[did-core]] specification.
@@ -303,10 +303,10 @@ did:web:example.com%3A3000
       </ul>
       </p>
       <p>
-        Within a did:web document absolute did URLs must be used whenever
-        present.
+        Whenever a DID URL is present within a `did:web` document, it must
+        be an absolute URL.
       <p class="note">
-        This includes inside of embedded key material and other metadata, and
+        This includes URLs inside of embedded key material and other metadata, and
         prevents
         key confusion attacks.
       </p>
@@ -558,25 +558,27 @@ did:web:example.com%3A3000:user:alice
           Guidance from <a
             href="https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final">
             NIST SP 800-52 Rev. 2
-          </a> or superceding, MUST be followed for delivery of a did web
+          </a> or superceding, MUST be followed for delivery of a `did:web`
           document.
         </p>
 
         <p>
-          It is additionally recommended to adhere to OWASP's Transport Layer
-          Protection Cheat Sheet [[OWASP-TRANSPORT]] latest recommendations for
-          hardening TLS configurations.
+          It is additionally recommended to adhere to the latest recommendations
+          from OWASP's Transport Layer Protection Cheat Sheet [[OWASP-TRANSPORT]]
+          for hardening TLS configurations.
         </p>
 
         <p>
           Consult <a href="https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final">
             NIST SP 800-57
-          </a> for guidance on cryptoperiod, which is the time span during which a specific key is authorized for use or in which the keys for a given system or application may remain in effect.
+          </a> for guidance on cryptoperiod, which is the time span during which
+          a specific key is authorized for use or in which the keys for a given
+          system or application may remain in effect.
         </p>
 
         <p>
-          At least SHA256 MUST be used in TLS configuration, but SHA384,
-          POLY1305 or stronger is recommended, depending on the needs of your
+          TLS configuration MUST use at least SHA256, and SHOULD use SHA384,
+          POLY1305, or stronger, depending on the needs of your
           operating environment.
         </p>
 
@@ -586,11 +588,11 @@ did:web:example.com%3A3000:user:alice
         </p>
 
         <p>
-          At time of this writing, at least TLS 1.2 should be configured to use
+          As of this writing, TLS 1.2 or higher SHOULD be configured to use
           only strong ciphers suites and to use sufficiently large key sizes.
           As recommendations may be volatile these days, only the very latest
           recommendations should be used. However, as a rule of thumb,
-          the following set of suites is a reasonable starting place:
+          the following set of suites is a reasonable starting point:
         </p>
 
         <ul>
