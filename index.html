@@ -97,7 +97,7 @@
     <p>
       DIDs that target a distributed ledger face significant practical
       challenges in bootstrapping enough meaningful trusted data around
-      identities to incentivize mass adoption. 
+      identities to incentivize mass adoption.
       We propose a new DID method using a web domain's existing reputation.
     </p>
   </section>
@@ -126,7 +126,8 @@
         Examples
       </h2>
 
-      <pre class="example" title="Example did:web DID document using JSON Web Keys">
+      <pre class="example"
+        title="Example did:web DID document using JSON Web Keys">
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
@@ -181,7 +182,8 @@
 }
         </pre>
 
-        <pre class="example" title="Example did:web DID document using an ethereum address">
+      <pre class="example"
+        title="Example did:web DID document using an ethereum address">
 {
   "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/secp256k1recovery-2020/v2"],
   "id": "did:web:example.com",
@@ -210,9 +212,10 @@
         Target system
       </h2>
       <p>
-        The target system of the Web DID method is the web host that the domain
-        name described by the DID resolves to when queried through the Domain
-        Name System (DNS).
+        The target system of the Web DID method is the host (or domain if the
+        host
+        is not specified) name when the domain specified by the DID is resolved
+        through the Domain Name System (DNS).
       </p>
 
     </section>
@@ -261,6 +264,47 @@ did:web:w3c-ccg.github.io:user:alice
 
 did:web:example.com%3A3000
         </pre>
+    </section>
+    <section>
+      <h2>
+        Key Material and Document Handling
+      </h2>
+      <p>
+        Due to the way most web servers present content, it is likely that a
+        particular did:web document will be served with a media type of
+      <pre>application/json</pre>. If a document is retrieved and it is named
+      <pre>did.json</pre> a few processing rules should apply:
+      <ul>
+        <li>
+          If an
+          <pre>@context</pre> is present at the root of the json document,
+          the document should be processed according to the JSON-LD rules.
+          If this is not possible, or if the document failes processing, the
+          document should be rejected from consideration as a did:web doc.
+        </li>
+        <li>
+          If an
+          <pre>@context</pre> is present at the root of the json document,
+          and is passes JSON-LD processing, and it contains the context
+          <pre>https://www.w3.org/ns/did/v1</pre>, it may be further processed
+          as a
+          DID document as specified by section
+          <a href="https://www.w3.org/TR/did-core/#consumption-0">6.3.2</a> of
+          the
+          [[did-core]] specification.
+        </li>
+        <li>
+          If no
+          <pre>@context</pre> is present, it should be processed via normal
+          JSON rules for DID processing as specified in section
+          <a href="https://www.w3.org/TR/did-core/#consumption">6.2.2</a> of the
+          [[did-core]] specification.
+        </li>
+      </ul>
+      </p>
+      <p>
+        Within a retrieved did:web document
+      </p>
     </section>
 
     <section>
