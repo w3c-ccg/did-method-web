@@ -303,7 +303,13 @@ did:web:example.com%3A3000
       </ul>
       </p>
       <p>
-        Within a retrieved did:web document
+        Within a did:web document absolute did URLs must be used whenever
+        present.
+      <p class="note">
+        This includes inside of embedded key material and other metadata, and
+        prevents
+        key confusion attacks.
+      </p>
       </p>
     </section>
 
