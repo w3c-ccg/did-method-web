@@ -97,7 +97,7 @@
     <p>
       DIDs that target a distributed ledger face significant practical
       challenges in bootstrapping enough meaningful trusted data around
-      identities to incentivize mass adoption. 
+      identities to incentivize mass adoption.
       We propose a new DID method using a web domain's existing reputation.
     </p>
   </section>
@@ -126,7 +126,8 @@
         Examples
       </h2>
 
-      <pre class="example" title="Example did:web DID document using JSON Web Keys">
+      <pre class="example"
+        title="Example did:web DID document using JSON Web Keys">
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
@@ -181,7 +182,8 @@
 }
         </pre>
 
-        <pre class="example" title="Example did:web DID document using an ethereum address">
+      <pre class="example"
+        title="Example did:web DID document using an ethereum address">
 {
   "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/secp256k1recovery-2020/v2"],
   "id": "did:web:example.com",
@@ -210,9 +212,10 @@
         Target system
       </h2>
       <p>
-        The target system of the Web DID method is the web host that the domain
-        name described by the DID resolves to when queried through the Domain
-        Name System (DNS).
+        The target system of the Web DID method is the host (or domain if the
+        host
+        is not specified) name when the domain specified by the DID is resolved
+        through the Domain Name System (DNS).
       </p>
 
     </section>
@@ -261,6 +264,53 @@ did:web:w3c-ccg.github.io:user:alice
 
 did:web:example.com%3A3000
         </pre>
+    </section>
+    <section>
+      <h2>
+        Key Material and Document Handling
+      </h2>
+      <p>
+        Due to the way most web servers present content, it is likely that a
+        particular `did:web` document will be served with a media type of
+      `application/json`. If a document is retrieved and it is named
+      `did.json`, a few processing rules should apply:
+      <ul>
+        <li>
+          If an
+          `@context` is present at the root of the JSON document,
+          the document should be processed according to the JSON-LD rules.
+          If this is not possible, or if the document fails processing, the
+          document should be rejected from consideration as a `did:web` doc.
+        </li>
+        <li>
+          If an
+          `@context` is present at the root of the JSON document,
+          and it passes JSON-LD processing, and it contains the context
+          `https://www.w3.org/ns/did/v1`, it may be further processed
+          as a
+          DID document as specified by section
+          <a href="https://www.w3.org/TR/did-core/#consumption-0">6.3.2</a> of
+          the
+          [[did-core]] specification.
+        </li>
+        <li>
+          If no
+          `@context` is present, it should be processed via normal
+          JSON rules for DID processing as specified in section
+          <a href="https://www.w3.org/TR/did-core/#consumption">6.2.2</a> of the
+          [[did-core]] specification.
+        </li>
+      </ul>
+      </p>
+      <p>
+        Whenever a DID URL is present within a `did:web` document, it must
+        be an absolute URL.
+      <p class="note">
+        This includes URLs inside of embedded key material and other metadata, and
+        prevents
+        key confusion attacks.
+      </p>
+      </p>
     </section>
 
     <section>
@@ -505,16 +555,47 @@ did:web:example.com%3A3000:user:alice
         </h3>
 
         <p>
-          At least TLS 1.2 should be configured to use only strong ciphers
-          suites and to use sufficiently large key sizes. As recommendations may
-          be volatile these days, only the very latest recommendations should be
-          used. However, as a rule of thumb, the following must be used:
+          Guidance from <a
+            href="https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final">
+            NIST SP 800-52 Rev. 2
+          </a> or superceding, MUST be followed for delivery of a `did:web`
+          document.
+        </p>
+
+        <p>
+          It is additionally recommended to adhere to the latest recommendations
+          from OWASP's Transport Layer Protection Cheat Sheet [[OWASP-TRANSPORT]]
+          for hardening TLS configurations.
+        </p>
+
+        <p>
+          Consult <a href="https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final">
+            NIST SP 800-57
+          </a> for guidance on cryptoperiod, which is the time span during which
+          a specific key is authorized for use or in which the keys for a given
+          system or application may remain in effect.
+        </p>
+
+        <p>
+          TLS configuration MUST use at least SHA256, and SHOULD use SHA384,
+          POLY1305, or stronger, depending on the needs of your
+          operating environment.
+        </p>
+
+        <p>
+          Delete action MAY be performed by domain name registrars or DNS lookup
+          services.
+        </p>
+
+        <p>
+          As of this writing, TLS 1.2 or higher SHOULD be configured to use
+          only strong ciphers suites and to use sufficiently large key sizes.
+          As recommendations may be volatile these days, only the very latest
+          recommendations should be used. However, as a rule of thumb,
+          the following set of suites is a reasonable starting point:
         </p>
 
         <ul>
-          <li>
-            Ephemeral keys are to be used.
-          </li>
           <li>
             ECDHE with one of the strong curves {X25519, brainpoolP384r1, NIST
             P-384, brainpoolP256r1, NIST P-256} shall be used as key exchange.
@@ -530,10 +611,6 @@ did:web:example.com%3A3000:user:alice
           <li>
             Authenticated Encryption with Associated Data (AEAD) shall be used
             as Mac.
-          </li>
-          <li>
-            At least SHA256 shall be used, but SHA384 or POLY1305 are
-            recommended.
           </li>
         </ul>
 
@@ -561,16 +638,7 @@ did:web:example.com%3A3000:user:alice
           </li>
         </ul>
 
-        <p>
-          It is recommended to adhere to OWASP's Transport Layer Protection
-          Cheat Sheet [[OWASP-TRANSPORT]] latest recommendations for hardening
-          TLS configurations.
-        </p>
 
-        <p>
-          Delete action can be performed by domain name registrars or DNS lookup
-          services.
-        </p>
 
       </section>
 
