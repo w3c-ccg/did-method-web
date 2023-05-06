@@ -644,6 +644,32 @@ did:web:example.com%3A3000:user:alice
 
       <section>
         <h3>
+          International Domain Names
+        </h3>
+        <p>
+          [[DID-CORE]] identifier syntax does not 
+          allow Unicode in method name nor method specific identifiers.
+        </p>
+        <p>
+          Implementers should be cautious when implementing 
+          support for DID URLs that rely on domain names 
+          or path components that contain Unicode characters.
+        </p>
+        <p>
+          See also:
+        </p>
+        <ul>
+          <li>
+            <a href="https://unicode.org/reports/tr46/">UTS-46</a>
+          </li>
+          <li>
+            <a href="https://www.rfc-editor.org/rfc/rfc5895">IDNA 2008</a>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>
           Optional Path Considerations
         </h3>
         <p>
