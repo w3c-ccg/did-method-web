@@ -702,6 +702,22 @@ https://example.com/u/bob/did.json
           rather than all of example.com.
         </p>
       </section>
+
+      <section>
+        <h3>
+          Cross-Origin Resource Sharing (CORS) Policy Considerations
+        </h3>
+        <p>
+          To support scenarios where DID resolution is performed by client
+          applications running in a web browser, the file served for the DID
+          document should be accessible by any origin. To enable this,
+          the DID document HTTP response can be set to include the
+          following header:
+        </p>
+        <pre class="nohighlight">
+Access-Control-Allow-Origin: *
+        </pre>
+      </section>
     </section>
   </section>
 
